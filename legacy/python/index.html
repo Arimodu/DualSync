@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DualSync</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151e33;--line:#2b3d57;--text:#edf6ff;--muted:#a0b4cd;--cyan:#64d9ec;--green:#78e8b0;--red:#ff9d9d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:19px/1.45 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;align-items:center;gap:20px}h1{font-size:32px;margin:0}h2{font-size:22px;margin:0 0 16px}.subtitle,.muted{color:var(--muted)}.subtitle{margin:4px 0 0}.pill{border:1px solid var(--line);border-radius:30px;padding:10px 20px;font-weight:700;text-transform:capitalize}.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:22px}.outputs{display:grid;grid-template-columns:1fr 1fr;gap:18px}.output{padding:17px;border:1px solid var(--line);border-radius:14px}.output strong{font-size:22px}.light{display:inline-block;width:12px;height:12px;margin-right:10px;border-radius:50%;background:var(--muted)}.ready .light{background:var(--green)}.output small{display:block;color:var(--muted);margin-top:6px;overflow-wrap:anywhere}.clock{font-size:48px;font-variant-numeric:tabular-nums;font-weight:600}.clock span{font-size:24px;color:var(--muted)}progress{appearance:none;width:100%;height:10px;border:0;border-radius:8px;overflow:hidden;background:#27344b}progress::-webkit-progress-bar{background:#27344b}progress::-webkit-progress-value{background:var(--cyan)}progress::-moz-progress-bar{background:var(--cyan)}label{display:block;color:var(--muted);margin-bottom:7px}input,select{width:100%;font:inherit;color:var(--text);background:#0d1627;border:1px solid #3f536e;border-radius:10px;padding:15px;min-height:58px}input:focus,select:focus,button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}button{font:inherit;font-weight:600;min-height:76px;cursor:pointer;padding:18px 24px;border-radius:13px;border:1px solid #425575;color:var(--text);background:#263753}button:hover{background:#344b6c}button:disabled{opacity:.4;cursor:default}.primary{background:#46bdce;color:#071b24;border:0}.primary:hover{background:#79e5f1}.danger{background:#39252d;color:#ffc6ce}.actions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}.seek{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:16px;margin-top:16px}.seek button{font-size:25px}.seek small{display:block;font-size:15px;font-weight:400;color:var(--muted)}.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field{margin-bottom:20px}.full{grid-column:1/-1}.message{padding:14px 18px;border:1px solid #7d4c58;border-radius:10px;background:#30202c;color:#ffbcc5;margin-top:18px;white-space:pre-wrap;overflow-wrap:anywhere}.message[hidden]{display:none}#music{overflow-wrap:anywhere}details summary{cursor:pointer;font-size:23px;font-weight:600;min-height:55px}details p{color:var(--muted)}.compact{min-height:58px;font-size:17px}footer{color:var(--muted);font-size:15px;margin:22px 0}.hint{font-size:15px;color:var(--muted);margin-top:7px}.music-row{display:flex;gap:18px;justify-content:space-between;align-items:center;margin-top:14px}.status-note{min-height:30px;color:var(--muted);margin-top:12px}@media(max-width:650px){main{padding:16px}header{align-items:flex-start}.row,.outputs{grid-template-columns:1fr}.panel{padding:18px}.seek{gap:9px}.seek button{padding:16px 8px;font-size:21px}.clock{font-size:38px}.actions{gap:12px}.music-row{display:block}.music-row button{margin-top:12px}}
+</style>
+</head>
+<body><main>
+<header><div><h1>DualSync</h1><p class="subtitle">Two languages. One playback position.</p></div><div id="mode" class="pill">Connecting</div></header>
+<div id="message" class="message" hidden role="alert"></div>
+<section class="panel">
+<div class="outputs"><div id="subOutput" class="output"><strong><span class="light"></span>Sub</strong><small id="subState">Not publishing</small><small id="subUrl"></small></div><div id="dubOutput" class="output"><strong><span class="light"></span>Dub</strong><small id="dubState">Not publishing</small><small id="dubUrl"></small></div></div>
+<div class="actions"><button id="start" class="primary">Start streams</button><button id="stop" class="danger">Stop streams</button></div>
+</section>
+<section class="panel">
+<label for="episode">Episode</label><select id="episode"></select>
+<div class="clock" id="clock">00:00 <span>/ 00:00</span></div><progress id="timeline" value="0" max="1" aria-label="Episode progress"></progress>
+<div class="actions"><button id="play" class="primary">Play</button><button id="pause">Pause</button></div>
+<div class="seek"><button id="back">−10s<small>Back</small></button><button id="forward">+10s<small>Forward</small></button><button id="intro">+80s<small>Skip intro</small></button></div>
+<div id="note" class="status-note">Start streams before playing an episode.</div>
+<div class="music-row"><div><span class="muted">Idle music</span><div id="music">Silent</div></div><button id="musicNext" class="compact">Next song</button></div>
+</section>
+<details class="panel" id="settingsPanel"><summary>Stream settings</summary><p>Stop streams to change settings or rescan files. The same stream path is used on both servers.</p>
+<form id="settingsForm"><div class="row">
+<div class="field"><label for="sub_server">Sub server</label><input id="sub_server" name="sub_server" placeholder="rtmp://127.0.0.1:1935" required></div>
+<div class="field"><label for="dub_server">Dub server</label><input id="dub_server" name="dub_server" placeholder="rtmp://10.0.0.3:1935" required></div>
+<div class="field full"><label for="stream_path">Shared stream path</label><input id="stream_path" name="stream_path" placeholder="app/727" required><div class="hint">RTMP or RTSP server base URLs. Keep the stream path in this single field.</div></div>
+<div class="field full"><label for="idle_image">Idle image or looping GIF</label><input id="idle_image" name="idle_image" required><div class="hint">Absolute file path on Zeus or a Z:\ path. Images, GIFs and short video loops are supported.</div></div>
+<div class="field full"><label for="music_folder">Music folder</label><input id="music_folder" name="music_folder" required></div>
+<div class="field full"><label for="music_volume">Idle music volume: <span id="volumeLabel">25</span>%</label><input id="music_volume" name="music_volume" type="range" min="0" max="100" step="1"></div>
+<div class="field"><label for="sub_folder">Sub video folder</label><input id="sub_folder" name="sub_folder" required></div>
+<div class="field"><label for="dub_folder">Dub video folder</label><input id="dub_folder" name="dub_folder" required></div>
+<div class="field"><label for="sub_username">Sub publisher username</label><input id="sub_username" name="sub_username" autocomplete="off"></div>
+<div class="field"><label for="sub_password">Sub publisher password</label><input id="sub_password" name="sub_password" type="password" autocomplete="new-password"><div class="hint">Blank keeps the saved password.</div></div>
+<div class="field"><label for="dub_username">Dub publisher username</label><input id="dub_username" name="dub_username" autocomplete="off"></div>
+<div class="field"><label for="dub_password">Dub publisher password</label><input id="dub_password" name="dub_password" type="password" autocomplete="new-password"><div class="hint">Blank keeps the saved password.</div></div>
+</div><div class="actions"><button id="save" type="submit" class="primary">Apply settings</button><button id="rescan" type="button">Rescan episodes</button></div></form>
+</details>
+<footer>Sub: Japanese audio with English subtitles. Dub: English audio with translated signs.<br>Pause keeps both streams connected. Music starts after a minute. Seek controls use the source timeline; viewer buffering can differ.</footer>
+</main><script>
+let current=null,busy=false,settingsFilled=false,episodeSignature='',requestError='';
+const el=id=>document.getElementById(id);
+function duration(value){value=Math.max(0,Math.floor(value));return `${String(Math.floor(value/60)).padStart(2,'0')}:${String(value%60).padStart(2,'0')}`}
+function message(text){el('message').textContent=text;el('message').hidden=!text}
+function render(s){
+ current=s;el('mode').textContent=s.buffering?'Buffering':s.mode;
+ const stopped=s.mode==='stopped';
+ for(const side of ['sub','dub']){const p=s.outputs[side];el(side+'Output').classList.toggle('ready',!!p?.ready);el(side+'State').textContent=!p?'Not publishing':p.ready?'Connected':p.restarts?'Reconnecting':'Connecting';el(side+'Url').textContent=s.settings[side+'_server']+'/'+s.settings.stream_path;}
+ const signature=JSON.stringify(s.episodes);if(signature!==episodeSignature){el('episode').replaceChildren(...s.episodes.map(p=>{const o=document.createElement('option');o.value=p.episode;o.textContent=`Episode ${String(p.episode).padStart(2,'0')}`;return o}));episodeSignature=signature}el('episode').value=s.episode??'';
+ el('clock').replaceChildren(document.createTextNode(duration(s.position)+' '),Object.assign(document.createElement('span'),{textContent:'/ '+duration(s.duration)}));el('timeline').max=s.duration||1;el('timeline').value=s.position;
+ el('start').disabled=busy||!stopped;el('stop').disabled=busy||stopped;el('play').disabled=busy||stopped||s.mode==='playing'||!s.episodes.length;el('play').textContent=s.mode==='paused'?'Resume':'Play';el('pause').disabled=busy||s.mode!=='playing';
+ for(const id of ['back','forward','intro','episode'])el(id).disabled=busy||!s.episodes.length;
+ for(const input of el('settingsForm').elements)input.disabled=busy||!stopped;
+ el('musicNext').disabled=busy||!s.music_track;el('music').textContent=s.music_track||'Silent';
+ el('note').textContent=s.buffering?'Waiting for both videos and streams. Playback position is held.':s.mode==='paused'?s.pause_seconds<60?`Paused. Music starts in ${Math.ceil(60-s.pause_seconds)}s.`:s.music_track?'Paused. Idle music is playing.':'Paused. Idle music is silent.':s.mode==='playing'?'Both episodes are playing.':s.mode==='ended'?'Playlist finished. Streams remain connected.':stopped?'Start streams before playing an episode.':'Streams are running. Press Play when ready.';
+ if(!settingsFilled){for(const [key,value] of Object.entries(s.settings)){if(el(key))el(key).value=value}el('volumeLabel').textContent=s.settings.music_volume;settingsFilled=true}
+ const errors=[requestError,s.error,...Object.values(s.outputs).filter(p=>!p.ready).map(p=>p.error)].filter(Boolean);message([...new Set(errors)].join('\n'));
+}
+async function post(path,body){busy=true;if(current)render(current);try{const res=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await res.json();if(!res.ok)throw Error(data.error||'Request failed');requestError='';render(data);return data}catch(e){requestError=e.message;message(requestError)}finally{busy=false;if(current)render(current)}}
+async function sendCommand(action,value){if(busy)return;await post('/api/control',{action,value})}
+for(const [id,action,value] of [['start','start'],['stop','stop'],['play','play'],['pause','pause'],['back','seek',-10],['forward','seek',10],['intro','seek',80],['musicNext','music_next'],['rescan','rescan']])el(id).addEventListener('click',()=>sendCommand(action,value));
+el('episode').addEventListener('change',e=>sendCommand('episode',Number(e.target.value)));
+el('music_volume').addEventListener('input',e=>el('volumeLabel').textContent=e.target.value);
+el('settingsForm').addEventListener('submit',async e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target));data.music_volume=Number(data.music_volume);for(const side of ['sub','dub'])if(!data[side+'_password'])delete data[side+'_password'];const saved=await post('/api/settings',data);if(saved){for(const side of ['sub','dub'])el(side+'_password').value='';settingsFilled=false;render(saved)}});
+async function poll(){try{const res=await fetch('/api/status');if(!res.ok)throw Error('Panel status unavailable');render(await res.json())}catch(e){message('Connection lost. Retrying…');el('mode').textContent='Offline';for(const id of ['start','stop','play','pause','back','forward','intro','episode'])el(id).disabled=true}finally{setTimeout(poll,1000)}}poll();
+</script></body></html>

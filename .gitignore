@@ -1,0 +1,14 @@
+/dist/
+/bin/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+*.tmp
+*.test
+verification/*.png
+verification/*.mkv
+/config.json
+/state/
+/settings.json
+/position.json

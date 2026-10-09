@@ -1,0 +1,23 @@
+[Unit]
+Description=DualSync synchronized media publisher
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=@PREFIX@ @MEDIA_ROOT@ @STATE_DIR@
+
+[Service]
+Type=simple
+User=@USER@
+ExecStart=@BINARY@ --config @CONFIG@
+WorkingDirectory=@WORKDIR@
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=@STATE_DIR@
+PrivateTmp=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

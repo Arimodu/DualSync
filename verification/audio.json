@@ -1,0 +1,14 @@
+[
+  {
+    "output": "sub",
+    "decoded_audio_bytes": 1536000,
+    "rms_pcm16": 5544.1,
+    "sha256": "0f505b01a75aee85d27cbab5507510ddefa856d6285f6fbdc58029e670c868e7"
+  },
+  {
+    "output": "dub",
+    "decoded_audio_bytes": 1536000,
+    "rms_pcm16": 5253.6,
+    "sha256": "c5c875ce21827642e39beb356aa61e1163b547089b8fe507db96d5bbf1dd25b9"
+  }
+]

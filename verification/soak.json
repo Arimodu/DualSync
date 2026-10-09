@@ -1,0 +1,4660 @@
+{
+  "passed": true,
+  "samples": [
+    {
+      "wall_seconds": 0.0023824909999348165,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 0.2919583333333334,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 65.92,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 67.358958,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 19.102661,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 10.009143376999873,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 10.301958333333362,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 75.950875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 77.354667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 18.091095000000003,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 20.021430999999666,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 20.31195833333337,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 85.960875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 87.33725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005700000000000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 30.029678641999908,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 30.321958333333132,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 95.957333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 97.34725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 40.03533095399962,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 40.3319583333329,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 105.939167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 107.392,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 50.04688047699983,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 50.34195833333266,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 115.949167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 117.36725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 60.05278450299966,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 60.351958333332426,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 125.959167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 127.37725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 70.06617541399964,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 70.3619583333322,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 135.969167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 137.38725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047999999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 80.07281708899973,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 80.37195833333196,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 145.979167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 147.39725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 90.07880309199982,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 90.38195833333172,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 156.030875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 157.40725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 100.09114126399982,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 100.39195833333149,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 165.999167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 167.41725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 110.10270390999995,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 110.40195833333125,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 176.009167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 177.450667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 120.1155166579997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 120.41195833333101,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 186.019167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 187.434667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 130.12117160399976,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 130.4219583333308,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 196.029167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 197.44725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 140.12711018899972,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 140.43195833333056,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 206.037333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 207.45725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 150.13689854699987,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 150.44195833333032,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 216.049167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 217.46725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00061,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 160.1582801469999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 160.45195833333008,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 226.059167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 227.47725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00061,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 170.1639817119999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 170.46195833332985,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 236.069167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 237.525333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 180.17232068399971,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 180.4719583333296,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 246.120875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 247.509333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0009599999999999999,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 190.18575122599987,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 190.48195833332937,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 256.128,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 257.50725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0009299999999999999,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 200.19440610999982,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 200.49195833332914,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 266.099167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 267.51725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 210.20524437799986,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 210.5019583333289,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 276.109167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 277.52725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 220.21734401999993,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 220.51195833332866,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 286.119167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 287.578958,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 230.22681247899982,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 230.52195833332843,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 296.129167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 297.54725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00046,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 240.2388835339998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 240.5319583333282,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 306.139167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 307.55725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00045,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 250.2480659179996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 250.54195833332795,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 316.149167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 317.56725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00044,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 260.25453876899974,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 260.55195833333084,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 326.159167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 327.57725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 270.2631674659997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 270.56195833333743,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 336.169167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 337.58725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00054,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 280.2694623579996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 280.571958333344,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 346.179167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 347.59725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 290.27510530499967,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 290.5819583333506,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 356.189167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 357.60725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047999999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 300.2805866409999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 300.5919583333572,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 366.199167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 367.61725,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 310.2964718969997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 310.60195833336377,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 376.12575,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 377.543833,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005899999999999999,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 320.30661127099984,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 320.61195833337035,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 385.927208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 2,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 387.303583,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 1,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00171,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 330.31001645299966,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 330.62195833337694,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 396.312583,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 397.772375,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00199,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 340.31851843100003,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 338.0043333333818,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 403.945208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 7,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 405.571833,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 7,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0028499999999999997,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 350.34031278999964,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 341.7997916667176,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 409.742667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 4,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 411.202458,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 3,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 80.43845900000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 360.51301906599974,
+      "phase": "buffering",
+      "index": 2,
+      "source_seconds": 345.1364583333865,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 415.581833,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 416.416,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 4,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 128.221579,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 370.5307572929996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 350.39170833338994,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 422.880792,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 423.798375,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 139.967917,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 380.5359993009997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 360.4017083333965,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 433.130667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 433.891792,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 93.379902,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 390.5511110509997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 370.4117083334031,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 443.151042,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 443.9435,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00164,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 400.5551612559998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 378.0860416667415,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 451.242458,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 5,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 451.868083,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 7,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00248,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 410.591340339,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 383.2995833334116,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 457.665542,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 6,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 458.124333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 3,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 76.000705,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 420.6066216309996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 388.5131250000817,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 464.755958,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 3,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 465.256458,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 3,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 106.720611,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 430.61328383,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 393.4764166667516,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 472.180042,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 7,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 472.138333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 8,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 108.39294600000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 440.7865215869997,
+      "phase": "buffering",
+      "index": 2,
+      "source_seconds": 398.52312500008827,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 479.770958,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 1,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 479.437292,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 7,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 105.757566,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 450.78973629799975,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 407.1984583334273,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 490.072917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 489.697542,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 80.547992,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 460.79336102599973,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 417.2084583334339,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 500.082917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 499.24875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.038171,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 470.8034785779996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 427.2184583334405,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 510.092917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 509.300458,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0019199999999999998,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 480.8122763049996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 437.22845833344707,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 520.102917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 519.296,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00153,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 490.82284780500004,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 447.23845833345365,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 530.112917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 529.27875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00055,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 500.8307887869996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 457.24845833346023,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 540.122917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 539.28875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 510.8394030929999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 467.2584583334668,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 550.132917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 549.29875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047999999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 520.8482615969997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 477.2684583334734,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 560.142917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 559.30875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 530.8628399089998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 487.27845833348,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 570.152917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 569.31875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 540.8708908519998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 497.2884583334866,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 580.162917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 579.32875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 550.879039808,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 507.29845833349316,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 590.172917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 589.33875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047999999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 560.8849843939997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 517.3084583334925,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 600.182917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 599.34875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005700000000000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 570.8956126819999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 527.3184583334854,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 610.192917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 609.35875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 580.911278093,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 537.3284583334784,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 620.202917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 619.36875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 590.9193482609999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 547.3384583334713,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 630.212917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 629.376,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 600.929775695,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 557.3484583334642,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 640.222917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 639.38875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 610.9379456439997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 567.3584583334572,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 650.232917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 649.39875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00054,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 620.9438938949997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 577.3684583334501,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 660.242917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 659.40875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 630.9618874849998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 587.3784583334431,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 670.250667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 669.41875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00055,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 640.9700683669998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 597.388458333436,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 680.262917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 679.466667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0006,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 650.9748650499996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 607.398458333429,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 690.272917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 689.43875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0006,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 660.984307403,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 617.4084583334219,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 700.282917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 699.44875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00055,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 670.990699771,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 627.4184583334148,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 710.334625,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 709.45875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 680.9951563099999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 637.4284583334078,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 720.302917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 719.46875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 690.9985860719999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 647.4384583334007,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 730.312917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 729.520458,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 701.0006387919998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 657.4067500000604,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 740.322917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 739.48875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047999999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 711.0027394069998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 667.4167500000533,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 750.332917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 749.49875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 721.007730072,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 677.4267500000462,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 760.342917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 759.50875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005600000000000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 731.012961076,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 687.4367500000392,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 770.352917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 769.51875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 741.0176316529996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 697.4467500000321,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 780.362917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 779.52875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 751.0279671359999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 707.4567500000251,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 790.4,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 789.53875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00062,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 761.0357099819998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 717.466750000018,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 800.424625,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 799.54875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00109,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 771.0595717249998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 727.476750000011,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 810.434625,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 809.6,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00115,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 781.0681233719997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 737.4867500000039,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 820.437333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 819.56875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00063,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 791.0750279199997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 747.4967499999968,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 830.412917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 829.57875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 801.0866923529998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 757.5067499999898,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 840.464625,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 839.58875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 811.0962785049996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 767.5167499999827,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 850.410667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 849.59875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00054,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 821.112563143,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 777.5267499999757,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 860.442917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 859.60875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 831.1206058179996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 787.5367499999686,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 870.452917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 869.61875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 841.1275651399997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 797.5467499999615,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 880.462917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 879.62875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 851.135108387,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 807.5567499999545,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 890.472917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 889.63875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 861.1504217439997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 817.5667499999474,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 900.482917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 899.64875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 871.1585122459996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 827.5767499999404,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 910.492917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 909.65875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005899999999999999,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 881.1658308589999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 837.5867499999333,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 920.502917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 919.66875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005600000000000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 891.1725943349998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 847.5967499999263,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 930.512917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 929.67875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00058,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 901.1779372779997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 857.6067499999192,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 940.522917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 939.68875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00062,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 911.2013102759997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 867.6167499999121,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 950.532917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 949.717333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00062,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 921.209619834,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 877.6267499999051,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 960.542917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 959.70875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00064,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 931.2186796409997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 887.636749999898,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 970.552917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 969.760458,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005899999999999999,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 941.2305000259998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 897.646749999891,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 980.604625,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 979.72875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00055,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 951.2444155979997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 907.6567499998839,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 990.592,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 989.738667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00046,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 961.2520975739999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 917.6667499998769,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1000.582917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 999.74875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047999999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 971.2581616349999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 927.6767499998698,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1010.592917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1009.792,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 981.2652393659996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 937.6867499998627,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1020.602917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1019.76875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00046,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 991.2729708729998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 947.6967499998557,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1030.612917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1029.820458,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047999999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1001.2955316389998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 957.7067499998486,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1040.622917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1039.78875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1011.304800718,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 963.6293333331778,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1047.504792,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 8,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1046.628917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 7,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.05493,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1021.4245986699998,
+      "phase": "buffering",
+      "index": 2,
+      "source_seconds": 966.9242916665088,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1052.80175,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 7,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1052.217833,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 6,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 93.618688,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1031.4676839609997,
+      "phase": "buffering",
+      "index": 2,
+      "source_seconds": 970.4277916665063,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1058.348958,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 6,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1057.723333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 6,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 136.397461,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1041.4730305599996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 976.2669583331689,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1066.065,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1065.939875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 138.389308,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1051.4809416129997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 986.2352499998285,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1076.075,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1075.949875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 54.924018999999994,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1061.4933213169998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 996.2452499998215,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1086.085,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1085.959875,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00173,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1071.650781538,
+      "phase": "buffering",
+      "index": 2,
+      "source_seconds": 1003.7110416664829,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1094.134708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 8,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1093.801042,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 7,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.036820000000000006,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1081.663115799,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1008.5074999998128,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1100.099,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 5,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1100.682917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 8,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 79.974214,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1091.8544484089998,
+      "phase": "buffering",
+      "index": 2,
+      "source_seconds": 1012.5949166664766,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1106.6055,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 3,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1106.480375,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 4,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 124.652575,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1101.8992391069996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1016.4320833331406,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1112.402958,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 2,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1112.569792,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 1,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 142.787473,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1112.0505894469998,
+      "phase": "buffering",
+      "index": 2,
+      "source_seconds": 1020.9365833331374,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1118.283833,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 6,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1119.076292,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 5,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 139.235059,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1122.0536151699998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1028.2772499998105,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1127.87675,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1128.293833,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 121.55479299999999,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1132.055457167,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1038.0369999998302,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1137.845042,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1138.303833,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 29.12421,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1142.059719151,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1047.7550416665165,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1147.521375,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 1,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1148.063583,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 1,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0020099999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1152.065411229,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1057.7233333332033,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1157.6565,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1158.157,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00165,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1162.07474048,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1067.7333333332235,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1167.6665,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1168.167,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.000941,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1172.0823040740001,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1077.7433333332438,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1177.6765,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1178.177,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1182.0935306589995,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1087.753333333264,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1187.6865,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1188.187,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00054,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1192.104137594,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1097.7633333332842,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1197.696,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1198.208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1202.1135263599995,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1107.7733333333044,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1207.7065,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1208.207,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1212.1272366839999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1117.7833333333247,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1217.7165,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1218.217,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047999999999999996,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1222.1342131839997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1127.793333333345,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1227.7265,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1228.245333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0006,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1232.1426672249995,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1137.8033333333651,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1237.778208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1238.237,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00065,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1242.1492312919995,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1147.8133333333853,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1247.7465,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1248.288708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00065,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1252.166035627,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1157.8233333334056,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1257.7565,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1258.257,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00065,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1262.1744775849997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1167.8333333334258,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1267.7665,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1268.266667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005700000000000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1272.1786634739997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1177.843333333446,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1277.7765,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1278.277,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1282.1972266779999,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1187.8533333334663,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1287.7865,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1288.287,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1292.2076887849994,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1197.8633333334865,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1297.7965,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1298.304,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005700000000000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1302.217195273,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1207.8733333335067,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1307.8065,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1308.307,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00063,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1312.2303339169998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1217.883333333527,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1317.8165,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1318.317,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00074,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1322.236852386,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1227.8933333335472,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1327.8265,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1328.327,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0007199999999999999,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1332.2487991819994,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1237.9033333335674,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1337.878208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1338.337,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005700000000000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1342.2575215330003,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1247.9133333335876,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1347.8465,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1348.347,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1352.2677271569996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1257.9233333336078,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1357.8565,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1358.378667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1362.2749604139995,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1267.933333333628,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1367.8665,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1368.367,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1372.283161072,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1277.9433333336483,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1377.8765,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1378.377,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00051,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1382.2927506299998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1287.9533333336685,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1387.8865,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1388.387,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1392.30912692,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1297.9633333336888,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1397.8965,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1398.397,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00052,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1402.3164164690002,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1307.973333333709,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1407.9065,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1408.407,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00055,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1412.3229199089997,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1317.9833333337292,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1417.9165,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1418.417,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0016300000000000002,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1422.3372922160002,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1327.9933333337494,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1427.925333,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1428.468708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00235,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1432.3439623709996,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1338.0033333337697,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1437.978208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1438.478708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0024,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1442.356859035,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1348.01333333379,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1447.988208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1448.488708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00128,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1452.3633378640002,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1358.0233333338101,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1458.039917,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1458.498708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00053,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1462.3727578880003,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1368.0333333338303,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1468.008208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1468.508708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005700000000000001,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1472.3851264720001,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1378.0433333338506,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1478.016,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1478.518708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1482.3981812329998,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1388.0533333338708,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1488.028208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1488.528708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1492.409023834,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1398.063333333891,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1498.038208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1498.538708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1502.416449017,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1408.0733333339113,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1508.048208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1508.548708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00047,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1512.4269040610002,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1418.0833333339315,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1518.058208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1518.558708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.0005,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1522.434808849,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1428.0933333339517,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1528.068208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1528.568708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1532.446341296,
+      "phase": "playing",
+      "index": 2,
+      "source_seconds": 1438.103333333972,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1538.078208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1538.578708,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 0.00049,
+        "samples": 1000
+      }
+    },
+    {
+      "wall_seconds": 1542.4490876449995,
+      "phase": "loading",
+      "index": 3,
+      "source_seconds": 0,
+      "outputs": {
+        "dub": {
+          "ready": true,
+          "pid": 31682,
+          "out_time": 1548.088208,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        },
+        "sub": {
+          "ready": true,
+          "pid": 31681,
+          "out_time": 1548.586667,
+          "restarts": 0,
+          "error": "",
+          "queued_frames": 0,
+          "encoder": "nvenc"
+        }
+      },
+      "renderer": {
+        "p95_ms": 29.767308,
+        "samples": 1000
+      }
+    }
+  ],
+  "elapsed_seconds": 1690.098024716,
+  "publisher_pids": {
+    "dub": 31682,
+    "sub": 31681
+  }
+}

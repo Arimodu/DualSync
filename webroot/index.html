@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>DualSync</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-play" viewBox="0 0 48 48"><path d="M16 10.5v27a2 2 0 0 0 3 1.7l21.4-13.5a2 2 0 0 0 0-3.4L19 8.8a2 2 0 0 0-3 1.7z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 48 48"><rect x="12" y="10" width="8.5" height="28" rx="2.5" fill="currentColor"/><rect x="27.5" y="10" width="8.5" height="28" rx="2.5" fill="currentColor"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 48 48"><path d="M12.5 17A14 14 0 1 1 10 27" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M8 9v10h10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 48 48"><path d="M24 9a15 15 0 1 1-14.4 19.2" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/><path d="M24 3.5v11L15.5 9z" fill="currentColor"/><text x="24" y="30.5" text-anchor="middle" font-size="13" font-weight="900" fill="currentColor" font-family="Zen Kaku Gothic New,sans-serif">10</text></symbol>
+    <symbol id="i-fwd" viewBox="0 0 48 48"><path d="M24 9a15 15 0 1 0 14.4 19.2" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/><path d="M24 3.5v11L32.5 9z" fill="currentColor"/><text x="24" y="30.5" text-anchor="middle" font-size="13" font-weight="900" fill="currentColor" font-family="Zen Kaku Gothic New,sans-serif">10</text></symbol>
+    <symbol id="i-skip" viewBox="0 0 48 48"><path d="M8 12v24l16-12zM24 12v24l16-12z" fill="currentColor"/><rect x="40" y="12" width="4" height="24" rx="1.5" fill="currentColor"/></symbol>
+    <symbol id="i-eject" viewBox="0 0 48 48"><path d="M24 10 9 28h30z" fill="currentColor"/><rect x="9" y="33" width="30" height="5" rx="2" fill="currentColor"/></symbol>
+    <symbol id="i-console" viewBox="0 0 48 48"><rect x="5" y="10" width="38" height="28" rx="6" fill="none" stroke="currentColor" stroke-width="3.4"/><path d="M24 10v28" stroke="currentColor" stroke-width="3.4"/><circle cx="14" cy="24" r="3.5" fill="currentColor"/><circle cx="34" cy="24" r="3.5" fill="currentColor"/></symbol>
+    <symbol id="i-library" viewBox="0 0 48 48"><path d="M6 14a4 4 0 0 1 4-4h9l4 5h15a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><path d="M20 22v9l8-4.5z" fill="currentColor"/></symbol>
+    <symbol id="i-dest" viewBox="0 0 48 48"><circle cx="24" cy="24" r="4.5" fill="currentColor"/><path d="M15 15a12.7 12.7 0 0 0 0 18M33 15a12.7 12.7 0 0 1 0 18M9 9a21 21 0 0 0 0 30M39 9a21 21 0 0 1 0 30" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 48 48"><rect x="12" y="12" width="24" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="3.4"/><rect x="19" y="19" width="10" height="10" rx="1.5" fill="currentColor"/><path d="M18 6v6M24 6v6M30 6v6M18 36v6M24 36v6M30 36v6M6 18h6M6 24h6M6 30h6M36 18h6M36 24h6M36 30h6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 48 48"><path d="M5 14a4 4 0 0 1 4-4h10l4 5h16a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z" fill="currentColor" opacity=".9"/></symbol>
+    <symbol id="i-film" viewBox="0 0 48 48"><rect x="7" y="8" width="34" height="32" rx="4" fill="none" stroke="currentColor" stroke-width="3.4"/><path d="M15 8v32M33 8v32M7 17h8M7 24h8M7 31h8M33 17h8M33 24h8M33 31h8" stroke="currentColor" stroke-width="3"/></symbol>
+    <symbol id="i-next" viewBox="0 0 48 48"><path d="M10 11v26l19-13z" fill="currentColor"/><rect x="32" y="11" width="5" height="26" rx="2" fill="currentColor"/></symbol>
+    <symbol id="i-power" viewBox="0 0 48 48"><path d="M24 7v15" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M14.5 13.5a15 15 0 1 0 19 0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+    <symbol id="i-note" viewBox="0 0 48 48"><path d="M18 34V11l20-4v22" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><circle cx="13" cy="35" r="5.5" fill="currentColor"/><circle cx="33" cy="30" r="5.5" fill="currentColor"/></symbol>
+    <symbol id="i-up" viewBox="0 0 48 48"><path d="M24 38V12M13 22l11-11 11 11" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 48 48"><path d="M14 14l20 20M34 14 14 34" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+  <nav class="rail" aria-label="Sections">
+    <div class="brand" aria-label="DualSync"><span class="brand-mark" aria-hidden="true">双</span><span>DualSync</span></div>
+    <a class="tab" href="#console" data-view="console"><svg><use href="#i-console"/></svg>Console</a>
+    <a class="tab" href="#library" data-view="library"><svg><use href="#i-library"/></svg>Library</a>
+    <a class="tab" href="#streams" data-view="streams"><svg><use href="#i-dest"/></svg>Streams</a>
+    <a class="tab" href="#system" data-view="system"><svg><use href="#i-chip"/></svg>System</a>
+    <div class="grow"></div>
+    <div class="conn" id="conn"><i></i><span>Connecting</span></div>
+  </nav>
+
+  <main>
+    <div id="banners" class="banners" aria-live="polite"></div>
+
+    <!-- ================= CONSOLE ================= -->
+    <section class="view" id="v-console" aria-label="Console">
+      <div class="head">
+        <img class="poster" id="poster" alt="" hidden>
+        <div class="show">
+          <div class="series" id="series">Nothing loaded</div>
+          <h1 id="headline">Choose an episode in the library</h1>
+        </div>
+        <div class="head-actions">
+          <div class="on-air" id="onAir"><i></i><span>Streams stopped</span></div>
+          <button class="btn go" id="streamBtn"><svg><use href="#i-power"/></svg><span>Start streams</span></button>
+        </div>
+      </div>
+
+      <div class="operation" id="operation" hidden></div>
+
+      <div class="console" id="console">
+        <article class="channel sub" id="ch-sub">
+          <div class="mark" aria-hidden="true">字幕</div>
+          <div class="ch-name">Sub <span class="state">Stopped</span></div>
+          <div class="tracks"></div>
+          <div class="dest-line"></div>
+          <div class="health" hidden><small>Health <span class="help" tabindex="0" role="note">?</span></small><div class="health-row"><span class="queue"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="enc"></span></div><span class="err"></span></div>
+        </article>
+        <div class="spine">
+          <div class="phase" id="phase"><i></i><span>No media</span></div>
+          <div class="clock" id="clock">0:00</div>
+          <div class="total" id="total">of 0:00</div>
+          <div class="sync" id="sync"></div>
+        </div>
+        <article class="channel dub" id="ch-dub">
+          <div class="mark" aria-hidden="true">吹替</div>
+          <div class="ch-name">Dub <span class="state">Stopped</span></div>
+          <div class="tracks"></div>
+          <div class="dest-line"></div>
+          <div class="health" hidden><small>Health <span class="help" tabindex="0" role="note">?</span></small><div class="health-row"><span class="enc"></span><span class="queue"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><span class="err"></span></div>
+        </article>
+      </div>
+
+      <div class="timeline">
+        <div class="bar" aria-hidden="true"><div class="done" id="tlDone"></div><div class="playhead" id="tlHead"></div></div>
+        <div class="tl-labels"><span>0:00</span><span id="tlNote"></span><span id="tlEnd">0:00</span></div>
+      </div>
+
+      <div class="transport">
+        <button class="key" id="kBack" data-seek="-10"><svg><use href="#i-back"/></svg><small>Back 10 s</small></button>
+        <button class="key" id="kFwd" data-seek="10"><svg><use href="#i-fwd"/></svg><small>Forward 10 s</small></button>
+        <button class="key play" id="kPlay"><svg><use href="#i-play"/></svg><span>Play</span></button>
+        <button class="key" id="kSkip" data-seek="80"><svg><use href="#i-skip"/></svg><small>Skip intro, 80 s</small></button>
+        <button class="key" id="kUnload"><svg><use href="#i-eject"/></svg><small>Unload</small></button>
+      </div>
+      <p class="console-note" id="consoleNote"></p>
+
+      <div class="lower">
+        <div class="box">
+          <h2>Episodes</h2>
+          <div class="eps" id="eps"></div>
+        </div>
+        <div class="box">
+          <div class="box-head"><h2 id="musicHead">Idle music</h2><a class="src-chip" id="musicSource" href="#streams" title="Change the music source"></a></div>
+          <div class="music-body">
+          <div class="music-now">
+          <div class="music">
+            <div class="art" id="art"><img id="cover" alt="" hidden><svg id="artNone"><use href="#i-note"/></svg></div>
+            <div class="music-meta"><b id="mTitle">Silent</b><span id="mArtist"></span><div class="mbar"><i id="mBar"></i></div><span class="mtime" id="mTime"></span></div>
+            <button class="btn round" id="musicNext" aria-label="Next song" title="Next song"><svg><use href="#i-next"/></svg></button>
+          </div>
+          <div class="mvol" id="mVol">
+            <label for="consoleVol">Volume while idle</label>
+            <input id="consoleVol" type="range" min="0" max="100" step="1">
+            <output id="consoleVolLabel" for="consoleVol">25%</output>
+          </div>
+          </div>
+          <div class="upnext" id="upNext"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LIBRARY ================= -->
+    <section class="view" id="v-library" aria-label="Library" hidden>
+      <div class="head"><div class="show"><div class="series">Library</div><h1>Choose what both channels play</h1></div></div>
+      <div class="lib">
+        <div class="box browser">
+          <div class="mode" role="group" aria-label="Source type">
+            <button data-mode="single" aria-pressed="true">One file per episode<small>Both languages inside each file</small></button>
+            <button data-mode="paired" aria-pressed="false">Separate sub and dub<small>Paired by season and episode</small></button>
+          </div>
+          <div class="libsrc" role="group" aria-label="Browse">
+            <button type="button" data-libsrc="files" aria-pressed="true"><svg><use href="#i-folder"/></svg>Files</button>
+            <button type="button" data-libsrc="plex" aria-pressed="false"><svg><use href="#i-library"/></svg>Plex</button>
+          </div>
+          <div class="crumb-row">
+            <button class="btn square" id="upBtn" aria-label="Up one folder" title="Up one folder"><svg><use href="#i-up"/></svg></button>
+            <nav class="crumb" id="crumbs" aria-label="Folder path"></nav>
+          </div>
+          <input class="search" id="search" type="search" placeholder="Search the library" aria-label="Search the library" autocomplete="off">
+          <div class="lib-notice" id="libNotice" hidden></div>
+          <div class="rows" id="rows"></div>
+          <button class="btn more" id="more" hidden>Show more</button>
+        </div>
+
+        <div class="box builder" id="builder">
+          <div class="slots" id="slots"></div>
+          <div id="builderBody"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STREAMS ================= -->
+    <section class="view" id="v-streams" aria-label="Streams" hidden>
+      <div class="head"><div class="show"><div class="series">Streams</div><h1>Where each channel is sent</h1></div><div class="on-air quiet" id="lockNote"></div></div>
+      <form id="settingsForm" autocomplete="off" class="settings">
+        <div class="dest">
+          <div class="side sub"><h2><span lang="ja">字幕</span> Sub</h2>
+            <div class="fld"><label for="sub_server">Sub server</label><input id="sub_server" name="sub_server" placeholder="rtmp://host:1935"></div>
+            <div class="fld"><label for="sub_username">Username</label><input id="sub_username" name="sub_username"></div>
+            <div class="fld"><label for="sub_password">Password</label><input id="sub_password" name="sub_password" type="password" autocomplete="new-password"></div>
+          </div>
+          <div class="mid">
+            <div class="fld"><label for="stream_path">Stream path, shared</label><input id="stream_path" name="stream_path" placeholder="live/dualsync"></div>
+            <p>Both servers publish on this path. Servers are RTMP or RTSP addresses without a path.</p>
+          </div>
+          <div class="side dub"><h2><span lang="ja">吹替</span> Dub</h2>
+            <div class="fld"><label for="dub_server">Dub server</label><input id="dub_server" name="dub_server" placeholder="rtsp://host:8554"></div>
+            <div class="fld"><label for="dub_username">Username</label><input id="dub_username" name="dub_username"></div>
+            <div class="fld"><label for="dub_password">Password</label><input id="dub_password" name="dub_password" type="password" autocomplete="new-password"></div>
+          </div>
+        </div>
+        <div class="savebar"><span id="dirtyNote"></span><button type="button" class="btn" id="discard">Discard</button><button type="submit" class="btn go" id="save">Save destinations</button></div>
+      </form>
+      <div class="gen">
+        <div class="box stack music-settings">
+          <div class="box-head"><h2>Idle music</h2><span class="src-chip" id="musicInUse"></span></div>
+          <div class="mode three" role="group" aria-label="Music source">
+            <button type="button" data-src="folder" aria-pressed="false">Folder<small>Songs from a library folder</small></button>
+            <button type="button" data-src="plex" aria-pressed="false">Plex playlist<small>A playlist on your Plex server</small></button>
+            <button type="button" data-src="off" aria-pressed="false">Off<small>Silence while idle</small></button>
+          </div>
+          <div id="srcFolder" class="stack">
+            <div class="fld"><label for="music_folder">Music folder</label><div class="inline"><input id="music_folder" placeholder="Arimodu/Music"><button type="button" class="btn" id="useFolder">Use library folder</button></div></div>
+            <div class="savebar"><span id="folderNote"></span><button type="button" class="btn go" id="applyFolder">Play this folder</button></div>
+          </div>
+          <div id="srcPlex" class="stack" hidden>
+            <div class="plex-conn">
+              <div class="fld"><label for="plex_server">Plex server</label><input id="plex_server" placeholder="http://plex.local:32400"></div>
+              <div class="fld"><label for="plex_token">Plex token</label><input id="plex_token" type="password" autocomplete="new-password"></div>
+              <button type="button" class="btn" id="plexConnect">Show playlists</button>
+            </div>
+            <div class="note bad" id="plexError" hidden></div>
+            <div class="playlists" id="playlists"></div>
+            <div id="plPreview"></div>
+          </div>
+          <div id="srcOff" class="stack" hidden>
+            <div class="savebar"><span>Streams stay silent while paused or idle. Your folder and playlist stay saved.</span><button type="button" class="btn go" id="applyOff">Turn music off</button></div>
+          </div>
+          <div class="toggle"><span>Shuffle songs</span><button type="button" class="switch" id="shuffle" role="switch" aria-checked="false" aria-label="Shuffle songs"></button></div>
+          <div class="fld"><label for="music_volume">Volume while idle, <span id="volLabel">25</span>%</label><input id="music_volume" type="range" min="0" max="100" step="1"></div>
+          <div class="toggle"><span>Reload the song list. The current song keeps playing.</span><button type="button" class="btn" id="musicRefresh">Refresh songs</button></div>
+        </div>
+        <div class="box stack">
+          <h2>On-screen display</h2>
+          <div class="toggle"><span>Show the progress ring on both streams while playing</span><button type="button" class="switch" id="hud" role="switch" aria-checked="false" aria-label="Progress ring"></button></div>
+          <div class="toggle"><span>Rescan the library for new and changed files</span><button type="button" class="btn" id="rescan">Rescan</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SYSTEM ================= -->
+    <section class="view" id="v-system" aria-label="System" hidden>
+      <div class="head"><div class="show"><div class="series">System</div><h1>Encoder qualification</h1></div><button class="btn" id="runDiag">Run qualification again</button></div>
+      <div id="sysBody" class="stack"></div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

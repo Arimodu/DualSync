@@ -1,0 +1,49 @@
+{
+  "supported": true,
+  "cpu_fallback": true,
+  "selected": {
+    "kind": "nvenc",
+    "device": "0"
+  },
+  "cpu": {
+    "virtual": true,
+    "virtualization": "kvm",
+    "physical_cores": 0,
+    "usable_vcpus": 12,
+    "budget": 12,
+    "eligible": true,
+    "basis": "allocated vCPUs; host physical cores unknown"
+  },
+  "tests": [
+    {
+      "encoder": {
+        "kind": "nvenc",
+        "device": "0"
+      },
+      "name": "NVIDIA GeForce RTX 2080 SUPER",
+      "available": true,
+      "tested": true,
+      "passed": true,
+      "fps_per_output": 34.712769313736665,
+      "error": ""
+    },
+    {
+      "encoder": {
+        "kind": "cpu",
+        "device": ""
+      },
+      "name": "CPU libx264",
+      "available": true,
+      "tested": true,
+      "passed": true,
+      "fps_per_output": 30.485421544418973,
+      "error": ""
+    }
+  ],
+  "missing": [],
+  "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "fingerprint": "1e1141faaa588e9a3c9e668aa5a701c40e1f9e65648feda7c98b23a6a3eb0861",
+  "created": "2026-10-07T14:34:24Z",
+  "warning": "",
+  "running": false
+}

@@ -1,0 +1,23 @@
+{
+  "media_root": "/srv/media",
+  "listen": "127.0.0.1:8090",
+  "state_dir": "/var/lib/dualsync",
+  "encoder": "auto",
+  "device": "",
+  "no_webui": false,
+  "allow_unsupported": false,
+  "settings": {
+    "sub_server": "",
+    "dub_server": "",
+    "stream_path": "live/dualsync",
+    "sub_username": "",
+    "dub_username": "",
+    "music_folder": "",
+    "music_volume": 25,
+    "hud_enabled": false,
+    "music_source": "folder",
+    "music_shuffle": true,
+    "plex_server": "",
+    "plex_playlist_id": ""
+  }
+}

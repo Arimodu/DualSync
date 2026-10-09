@@ -1,0 +1,23 @@
+const {chromium}=require(process.env.TEMP+'/dualsync-ui-test/node_modules/playwright');
+const target=process.env.DUALSYNC_TEST_URL;
+if(!target) throw new Error('Set DUALSYNC_TEST_URL to an isolated fixture instance; this test changes playback and publishing state.');
+(async()=>{
+const browser=await chromium.launch({headless:true});const page=await browser.newPage({viewport:{width:1440,height:1100}});const errors=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400) console.log('HTTP',r.status(),new URL(r.url()).pathname)});
+await page.goto(target);await page.waitForFunction(()=>document.querySelector('#start').disabled===false);
+await page.locator('[data-mode="paired"]').click();await page.locator('#entries .dir').filter({hasText:/^Paired$/}).click();
+await page.locator('#entries li').filter({has:page.locator('.dir').filter({hasText:/^Sub$/})}).locator('.pick button').filter({hasText:/^Sub$/}).click();
+await page.locator('#entries li').filter({has:page.locator('.dir').filter({hasText:/^Dub$/})}).locator('.pick button').filter({hasText:/^Dub$/}).click();
+await page.waitForFunction(()=>!document.querySelector('#playlistPanel').hidden&&document.querySelector('#playlistCount').textContent.includes('3'));
+console.log('preview',await page.locator('#previewNotes').innerText());console.log('tracks',await page.locator('#trackChooser').innerText());
+await page.locator('#load').click();await page.waitForFunction(()=>document.querySelector('#phaseChip').textContent.toLowerCase().includes('ready'),{},{timeout:60000});
+await page.locator('#start').click();await page.waitForFunction(()=>document.querySelector('#stop').disabled===false,{},{timeout:30000});
+await page.waitForTimeout(8000);console.log('outputs',await page.locator('#out-sub').innerText(),await page.locator('#out-dub').innerText());
+await page.locator('#play').click();await page.waitForFunction(()=>document.querySelector('#phaseChip').textContent.toLowerCase().includes('playing'),{},{timeout:30000});
+await page.waitForTimeout(3000);await page.locator('#pause').click();await page.waitForFunction(()=>document.querySelector('#phaseChip').textContent.toLowerCase().includes('paused'));await page.waitForTimeout(5500);
+await page.locator('[data-seek="80"]').click();await page.waitForFunction(()=>document.querySelector('#phaseChip').textContent.toLowerCase().includes('paused')&&document.querySelector('#clockPos').textContent.startsWith('01:'),{},{timeout:30000});
+console.log('clock',await page.locator('#clockPos').innerText());await page.locator('#settingsPanel summary').click();await page.locator('#hud_enabled').click();await page.waitForFunction(()=>document.querySelector('#hud_enabled').checked);await page.locator('#play').click();await page.waitForFunction(()=>document.querySelector('#phaseChip').textContent.toLowerCase().includes('playing'));await page.waitForTimeout(2500);await page.locator('#pause').click();await page.waitForFunction(()=>document.querySelector('#phaseChip').textContent.toLowerCase().includes('paused'));
+await page.screenshot({path:'verification/combined-ui.png',fullPage:true});
+console.log('errors',errors);console.log('banners',await page.locator('#banners').innerText());
+await page.locator('#stop').click();await page.waitForFunction(()=>!document.querySelector('#start').disabled);await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

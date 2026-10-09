@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>DualSync</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><h1>DualSync</h1><span class="muted">Two languages. One playback position.</span></div>
+  <div class="top-status"><span id="conn" class="conn" title="Panel connection"></span><span id="phasePill" class="pill">Connecting</span></div>
+</header>
+<div id="banners" class="banners" aria-live="polite"></div>
+
+<main class="grid">
+<div class="col">
+  <section class="panel" aria-labelledby="streamsTitle">
+    <div class="panel-head"><h2 id="streamsTitle">Streams</h2><span id="streamsState" class="chip">Stopped</span></div>
+    <div class="outputs">
+      <div id="out-sub" class="output"><div class="output-head"><span class="light"></span><strong>Sub</strong><span class="state"></span></div><div class="dest"></div><dl class="facts"></dl><div class="err"></div></div>
+      <div id="out-dub" class="output"><div class="output-head"><span class="light"></span><strong>Dub</strong><span class="state"></span></div><div class="dest"></div><dl class="facts"></dl><div class="err"></div></div>
+    </div>
+    <div class="actions two"><button id="start" class="primary">Start streams</button><button id="stop" class="danger">Stop streams</button></div>
+    <p id="streamsHint" class="hint"></p>
+  </section>
+
+  <section class="panel" aria-labelledby="playerTitle">
+    <div class="panel-head"><h2 id="playerTitle">Now playing</h2><span id="phaseChip" class="chip">No media</span></div>
+    <div id="mediaTitle" class="media-title">Nothing selected</div>
+    <div id="operation" class="operation" hidden></div>
+    <div class="field" id="itemField"><label for="item">Playlist item</label><select id="item"></select></div>
+    <div class="clock"><span id="clockPos">00:00</span> <span class="muted" id="clockDur">/ 00:00</span></div>
+    <div class="bar" aria-hidden="true"><div id="mediaBar"></div></div>
+    <div class="actions two"><button id="play" class="primary">Play</button><button id="pause">Pause</button></div>
+    <div class="actions seek">
+      <button data-seek="-10">−10s<small>Back</small></button>
+      <button data-seek="10">+10s<small>Forward</small></button>
+      <button data-seek="80">+80s<small>Skip intro</small></button>
+    </div>
+    <p id="playerNote" class="hint"></p>
+    <div id="currentTracks" class="current-tracks"></div>
+    <div class="actions"><button id="unload" class="subtle">Unload selection</button></div>
+  </section>
+
+  <section class="panel" aria-labelledby="musicTitle">
+    <div class="panel-head"><h2 id="musicTitle">Idle music</h2><span id="musicChip" class="chip">Silent</span></div>
+    <div class="music">
+      <div class="cover"><img id="cover" alt="" hidden><span id="coverFallback">♪</span></div>
+      <div class="music-meta">
+        <div id="musicName" class="music-name">Silent</div>
+        <div id="musicArtist" class="muted"></div>
+        <div class="bar thin" aria-hidden="true"><div id="musicBar"></div></div>
+        <div id="musicTime" class="muted small"></div>
+      </div>
+    </div>
+    <div class="actions"><button id="musicNext" class="subtle">Next song</button></div>
+  </section>
+</div>
+
+<div class="col">
+  <section class="panel" aria-labelledby="chooseTitle">
+    <div class="panel-head"><h2 id="chooseTitle">Choose media</h2></div>
+    <div class="segmented" role="radiogroup" aria-label="Source mode">
+      <button role="radio" data-mode="single" aria-checked="true">One file per episode<small>Both languages in the same file</small></button>
+      <button role="radio" data-mode="paired" aria-checked="false">Separate sub &amp; dub files<small>Episodes paired by S/E number</small></button>
+    </div>
+    <div id="slots" class="slots"></div>
+    <div class="library">
+      <div class="lib-bar">
+        <nav id="crumbs" class="crumbs" aria-label="Library path"></nav>
+        <input id="search" type="search" placeholder="Search this folder" aria-label="Search library" autocomplete="off">
+      </div>
+      <div id="libNotice" class="lib-notice" hidden></div>
+      <ul id="entries" class="entries"></ul>
+      <div class="lib-foot"><button id="more" class="subtle compact" hidden>Load more</button></div>
+    </div>
+  </section>
+
+  <section class="panel" id="playlistPanel" aria-labelledby="playlistTitle" hidden>
+    <div class="panel-head"><h2 id="playlistTitle">Playlist</h2><span id="playlistCount" class="chip"></span></div>
+    <div id="previewNotes"></div>
+    <div id="trackChooser" class="tracks"></div>
+    <ol id="items" class="items"></ol>
+    <div id="loadNotes"></div>
+    <div class="actions"><button id="load" class="primary">Load selection</button></div>
+    <p class="hint">Loading replaces the current selection, resets to the start and waits for Play. Streams stay connected.</p>
+  </section>
+</div>
+</main>
+
+<div class="lower">
+  <details class="panel" id="settingsPanel">
+    <summary><h2>Stream settings</h2></summary>
+    <p id="settingsLock" class="hint"></p>
+    <form id="settingsForm" autocomplete="off">
+      <div class="form-grid">
+        <div class="field"><label for="sub_server">Sub server</label><input id="sub_server" name="sub_server" placeholder="rtmp://host:1935"></div>
+        <div class="field"><label for="dub_server">Dub server</label><input id="dub_server" name="dub_server" placeholder="rtsp://host:8554"></div>
+        <div class="field full"><label for="stream_path">Shared stream path</label><input id="stream_path" name="stream_path" placeholder="live/dualsync"><p class="hint">Base RTMP/RTSP URLs without path, query or credentials. Both servers use this one path.</p></div>
+        <div class="field"><label for="sub_username">Sub username</label><input id="sub_username" name="sub_username"></div>
+        <div class="field"><label for="sub_password">Sub password</label><input id="sub_password" name="sub_password" type="password" autocomplete="new-password"><p class="hint" id="sub_password_hint"></p></div>
+        <div class="field"><label for="dub_username">Dub username</label><input id="dub_username" name="dub_username"></div>
+        <div class="field"><label for="dub_password">Dub password</label><input id="dub_password" name="dub_password" type="password" autocomplete="new-password"><p class="hint" id="dub_password_hint"></p></div>
+        <div class="field full"><label for="music_folder">Music folder</label><div class="inline"><input id="music_folder" name="music_folder" placeholder="Leave blank to disable music"><button type="button" id="useFolder" class="subtle compact">Use library folder</button></div><p class="hint">Relative to the media root.</p></div>
+        <div class="field full"><label for="music_volume">Idle music volume: <span id="volumeLabel">25</span>%</label><input id="music_volume" name="music_volume" type="range" min="0" max="100" step="1"></div>
+      </div>
+      <div class="actions two"><button id="saveSettings" type="submit" class="primary">Apply settings</button><button id="resetSettings" type="button" class="subtle">Discard changes</button></div>
+    </form>
+    <div class="toggle-row">
+      <label class="toggle"><input id="hud_enabled" type="checkbox"><span>On-screen HUD</span></label>
+      <span class="hint">Can be changed while streaming.</span>
+    </div>
+    <div class="toggle-row">
+      <button id="rescan" type="button" class="subtle compact">Rescan library</button>
+      <span class="hint">Clears probe caches and rebuilds the search index.</span>
+    </div>
+  </details>
+
+  <details class="panel" id="diagPanel">
+    <summary><h2>Encoder diagnostics</h2><span id="diagChip" class="chip"></span></summary>
+    <div id="diagBody"></div>
+    <div class="actions"><button id="runDiag" class="subtle">Run encoder qualification</button></div>
+    <p class="hint">Requires stopped streams. Runs two real encodes and can take several minutes. Nothing is published.</p>
+  </details>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

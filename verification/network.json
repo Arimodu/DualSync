@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "healthy_pid": 54579,
+  "old_failed_pid": 54580,
+  "recovered_pid": 55053,
+  "held_source_position": 3.6703333333333275,
+  "pause_music_gain": 0.25,
+  "profiles": [
+    {
+      "phase": "playing",
+      "fps": {
+        "dub": 23.998364899016476,
+        "sub": 23.999230672128753
+      },
+      "renderer": {
+        "p95_ms": 1.54452,
+        "samples": 1000
+      }
+    },
+    {
+      "phase": "paused",
+      "fps": {
+        "dub": 24.00014251923764,
+        "sub": 24.02149811940966
+      },
+      "renderer": {
+        "p95_ms": 14.234227,
+        "samples": 1000
+      }
+    },
+    {
+      "phase": "none",
+      "fps": {
+        "dub": 23.62087422338482,
+        "sub": 23.602138296553637
+      },
+      "renderer": {
+        "p95_ms": 16.639879999999998,
+        "samples": 1000
+      }
+    }
+  ]
+}
