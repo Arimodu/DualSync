@@ -1466,9 +1466,13 @@
               "stop",
               "play",
               "pause",
+              "pause_silent",
               "seek",
+              "seek_to",
               "episode",
               "unload",
+              "music_play",
+              "music_pause",
               "music_next",
               "music_refresh",
               "rescan"
@@ -1479,7 +1483,7 @@
               "number",
               "null"
             ],
-            "description": "seek accepts -10, 10 or 80 seconds; episode accepts a one-based playlist item; omit for other actions."
+            "description": "seek accepts -10, 10 or 80 seconds; seek_to accepts an absolute position in seconds (clamped to the current item); episode accepts a one-based playlist item; omit for other actions."
           }
         },
         "required": [
@@ -1637,6 +1641,10 @@
           "active": {
             "type": "boolean"
           },
+          "paused": {
+            "type": "boolean",
+            "description": "Explicit music hold set by music_pause or pause_silent. music_play and normal pause clear it. Media playback still holds music independently."
+          },
           "title": {
             "type": "string"
           },
@@ -1708,6 +1716,7 @@
         },
         "required": [
           "active",
+          "paused",
           "title",
           "artist",
           "album_artist",

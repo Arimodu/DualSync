@@ -78,6 +78,7 @@ type Engine struct {
 	renderer               *Renderer
 	music                  *Music
 	musicInfo              MusicInfo
+	musicPaused            bool
 	items                  []Item
 	load                   LoadRequest
 	index                  int
@@ -111,6 +112,10 @@ type Engine struct {
 }
 
 func NewEngine(c Config) (*Engine, error) {
+	return newEngine(c, Inventory, Diagnose)
+}
+
+func newEngine(c Config, inventory func() Report, diagnose func(context.Context, string) Report) (*Engine, error) {
 	l, err := NewLibrary(c.MediaRoot)
 	if err != nil {
 		return nil, err
@@ -142,9 +147,10 @@ func NewEngine(c Config) (*Engine, error) {
 		return nil, err
 	}
 	if ReadJSON(filepath.Join(c.StateDir, "diagnostics.json"), &e.diagnostics) != nil {
-		e.diagnostics = Inventory()
+		e.diagnostics = inventory()
 	}
-	if e.diagnostics.Fingerprint != "" && e.diagnostics.Fingerprint != Inventory().Fingerprint {
+	requalify := e.diagnostics.Fingerprint != "" && e.diagnostics.Fingerprint != inventory().Fingerprint
+	if requalify {
 		e.diagnostics.Supported = false
 		e.diagnostics.CPUFallback = false
 		e.diagnostics.Warning = "Hardware or FFmpeg changed; repeat encoding qualification"
@@ -190,6 +196,9 @@ func NewEngine(c Config) (*Engine, error) {
 		_ = e.Load(saved.Load, saved.Position)
 	}
 	go e.run()
+	if requalify {
+		_ = e.startDiagnostics(diagnose)
+	}
 	return e, nil
 }
 func (e *Engine) Close() {
@@ -420,6 +429,9 @@ func (e *Engine) Command(action string, value json.RawMessage) error {
 	e.revision++
 	switch action {
 	case "start":
+		if e.diagnostics.Running {
+			return fail("BUSY", 409, "wait for encoding qualification to finish")
+		}
 		if len(e.outputs) > 0 {
 			return nil
 		}
@@ -489,7 +501,11 @@ func (e *Engine) Command(action string, value json.RawMessage) error {
 			e.phase = "resuming"
 			e.resumedAt = time.Now()
 		}
-	case "pause":
+	case "pause", "pause_silent":
+		e.musicPaused = action == "pause_silent"
+		if e.musicPaused {
+			e.music.Mute()
+		}
 		if e.remoteRetry {
 			e.remoteTarget = "paused"
 			e.targetPhase = "paused"
@@ -502,10 +518,14 @@ func (e *Engine) Command(action string, value json.RawMessage) error {
 			e.targetPhase = "paused"
 			e.save()
 		}
-	case "seek":
-		var offset float64
-		if json.Unmarshal(value, &offset) != nil || (offset != -10 && offset != 10 && offset != 80) {
+	case "seek", "seek_to":
+		// seek moves by -10, 10 or 80 seconds; seek_to jumps to an absolute position, for the seek bar.
+		var amount float64
+		if action == "seek" && (json.Unmarshal(value, &amount) != nil || (amount != -10 && amount != 10 && amount != 80)) {
 			return fail("INVALID_ARGUMENT", 400, "seek offset must be -10, 10 or 80")
+		}
+		if action == "seek_to" && (len(value) == 0 || string(value) == "null" || json.Unmarshal(value, &amount) != nil || amount < 0) {
+			return fail("INVALID_ARGUMENT", 400, "seek_to position must be zero or more seconds")
 		}
 		if e.current() == nil {
 			return fail("NO_MEDIA", 409, "load media first")
@@ -517,9 +537,18 @@ func (e *Engine) Command(action string, value json.RawMessage) error {
 		if e.phase == "paused" {
 			target = "paused"
 		}
-		e.position = clamp(e.position+offset, 0, max(0, e.current().Duration-1/FPS))
+		if e.phase == "seeking" {
+			target = e.targetPhase
+		}
+		if action == "seek_to" {
+			e.position = clamp(amount, 0, max(0, e.current().Duration-1/FPS))
+		} else {
+			e.position = clamp(e.position+amount, 0, max(0, e.current().Duration-1/FPS))
+		}
 		e.phase = "seeking"
-		e.music.Mute()
+		if target == "playing" {
+			e.music.Mute()
+		}
 		e.startDecodeLocked(target)
 		e.save()
 	case "episode":
@@ -555,6 +584,11 @@ func (e *Engine) Command(action string, value json.RawMessage) error {
 		e.err = ""
 		e.operation = Operation{State: "idle"}
 		e.save()
+	case "music_pause":
+		e.musicPaused = true
+		e.music.Mute()
+	case "music_play":
+		e.musicPaused = false
 	case "music_next":
 		e.music.Next()
 	case "music_refresh":
@@ -672,7 +706,8 @@ func (e *Engine) Snapshot() Status {
 		stats.P95MS = times[min(len(times)-1, len(times)*95/100)]
 	}
 	music := e.music.snapshot()
-	music.Active = e.musicInfo.Active
+	music.Active = e.musicInfo.Active && !e.musicPaused
+	music.Paused = e.musicPaused
 	music.Gain = e.music.gain
 	var metadata *VideoMetadata
 	if current := e.current(); current != nil {
@@ -764,12 +799,17 @@ func (e *Engine) tick(now time.Time) {
 	for _, p := range e.outputs {
 		outputReady = outputReady && p.Status().Ready && p.CanAccept()
 	}
-	musicDue := e.phase == "none" || e.phase == "ready" || e.phase == "paused" || e.phase == "ended" || (e.phase == "loading" && e.targetPhase == "ready")
+	idleSeek := e.phase == "seeking" && (e.targetPhase == "paused" || e.targetPhase == "ready")
+	musicDue := idleSeek || e.phase == "none" || e.phase == "ready" || e.phase == "paused" || e.phase == "ended" || (e.phase == "loading" && e.targetPhase == "ready")
 	if len(e.outputs) == 0 {
+		musicDue = false
+	}
+	if e.musicPaused {
 		musicDue = false
 	}
 	previousMusicGain := e.music.gain
 	musicAudio, info := e.music.Tick(musicDue, outputReady && len(e.outputs) > 0, e.settings.MusicVolume)
+	info.Paused = e.musicPaused
 	e.musicInfo = info
 	// The video waits for the music fade and for the pause screen's half-second exit transition.
 	if e.phase == "resuming" && previousMusicGain <= 0 && e.music.gain <= 0 && ready && outputReady && now.Sub(e.resumedAt) >= resumeHold {
@@ -833,7 +873,7 @@ func (e *Engine) tick(now time.Time) {
 				scene.Resuming, scene.ResumeAge = true, now.Sub(e.resumedAt).Seconds()
 			}
 		}
-		if scene.Phase == "seeking" || scene.Phase == "buffering" || (scene.Phase == "loading" && e.targetPhase == "playing") {
+		if (scene.Phase == "seeking" && !idleSeek) || scene.Phase == "buffering" || (scene.Phase == "loading" && e.targetPhase == "playing") {
 			scene.Music = MusicInfo{}
 			audio = nil
 		}

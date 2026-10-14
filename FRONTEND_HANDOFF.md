@@ -57,6 +57,10 @@ Send commands to `POST /api/control`:
 | `play` | omitted | Streams started and media ready/paused/ended. Music fades out before episode audio resumes. Ended playback restarts the final selected item. |
 | `pause` | omitted | Pauses playing/resuming/buffering media. Repeated pause is harmless. |
 | `seek` | `-10`, `10` or `80` | Media selected. Clamped to the current item. Preserves playing/paused/ready behavior. |
+| `seek_to` | seconds, zero or more | Media selected. Jumps to an absolute position in the current item, clamped to its duration. Same playing/paused/ready and music behavior as `seek`. Used by the panel's seek bar. |
+| `pause_silent` | omitted | Same media pause as `pause`, with an immediate music hold. Keeps the current song and position. |
+| `music_pause` | omitted | Hold music immediately without changing media playback or publisher connections. |
+| `music_play` | omitted | Resume held music when media is idle, ready or paused. During media playback, enables music for the next idle state without overlapping episode audio. |
 | `episode` | integer starting at 1 | Available playlist item. Preserves playback state. |
 | `unload` | omitted | Clears selection while publishers remain connected. |
 | `music_next` | omitted | Selects another idle music track; does not change media selection. |
@@ -68,9 +72,42 @@ Send commands to `POST /api/control`:
 
 `POST /api/settings` accepts a partial update. Fields are `sub_server`, `dub_server`, one shared `stream_path`, per-output usernames/passwords, `music_folder`, `music_volume` and `hud_enabled`. Server fields are base RTMP/RTSP URLs without paths, embedded credentials or query parameters. `stream_path` provides the shared relative publishing path. Music folders are root-relative directories. HUD, music and Plex settings can change while streams are running; destination settings require Stop streams. See the 0.3.0 section below for added fields.
 
-Music status includes active, title, artist, album_artist, album, position, duration, gain, path and cover_url. Use `cover_url` verbatim when present. Missing artwork gives an empty URL. Music fades in over five seconds on pause/idle and fades out over 250 ms on resume. Its position freezes during playback and seeking; the same song resumes at the next pause. Both outputs share music samples.
+Music status includes active, title, artist, album_artist, album, position, duration, gain, path and cover_url. Use `cover_url` verbatim when present. Missing artwork gives an empty URL. Music fades in over five seconds on pause/idle and fades out over 250 ms on resume. Its position freezes during playback and seeks that resume playing; the same song resumes at the next pause. Seeks while paused or ready keep music playing at its existing gain while the target frame loads. Repeated seeks retain that behavior. Both outputs share music samples.
+
+`music.paused` reports an explicit music hold from `music_pause` or `pause_silent`.
+It is returned immediately in command responses. `music.active` remains false
+while explicitly held. Normal `pause` and `music_play` clear that hold; music
+resumes the same song and position with the existing five-second fade. Media
+playback holds music independently, so clearing the explicit hold cannot mix
+music with episode audio. The explicit hold also remains in effect during paused
+seeks, episode changes and music source changes. It lasts for the current backend
+session; startup continues to restore media without starting publishers.
+
+For the two media pause actions, send `{"action":"pause"}` for a break with
+music or `{"action":"pause_silent"}` for conversation without music. For music
+transport, send `{"action":"music_pause"}` or `{"action":"music_play"}`.
+Existing `music_next` skips to a prepared song; when music is held, the new song
+stays at position zero until resumed. None of these actions disconnect publishers.
 
 `GET /api/diagnostics` returns encoder qualification, CPU accounting, candidate results, missing tools and warning text. `supported=false` must remain visible to users. `POST /api/diagnostics` with `{}` requires stopped streams and no existing diagnostic job. HTTP 202 returns `running=true`; poll until false. Tests can take several minutes and exercise two real encoding jobs. They do not start network publishers.
+
+When a saved qualification fingerprint differs from the current hardware, driver,
+kernel or FFmpeg inventory, startup schedules qualification in the background.
+The diagnostics response exposes `running=true` during that job. Start streams
+returns `BUSY` until it finishes, including when unsupported operation was
+explicitly allowed. Unchanged qualification is reused. A failed benchmark remains
+unsupported; the backend does not assume that changed hardware is qualified.
+
+Automatic Plex music catalog refresh runs in the preparation worker when another
+song is needed. It preserves the current song and already prepared upcoming songs.
+Explicit Refresh and source or shuffle changes still rebuild the upcoming queue.
+
+Shuffle chooses each unique song once per cycle. Automatic Plex catalog refresh
+retains the songs already selected in that cycle, including prepared upcoming
+songs. New songs join the remaining cycle; removed songs leave it. Once the cycle
+is exhausted, the next cycle is shuffled with no immediate repeat when more than
+one song is available. Explicit Refresh and source or shuffle changes start a new
+cycle. Ordered playback retains repeated entries supplied by the playlist.
 
 An HTTP error returns `{"code":"...","error":"..."}`. Common codes include INVALID_JSON, INVALID_ARGUMENT, INVALID_PATH, OUTSIDE_ROOT, NOT_FOUND, CROSS_ORIGIN, PRIVATE_NETWORK_REQUIRED, STREAMS_STOPPED, STREAMS_RUNNING, NO_MEDIA, MEDIA_NOT_READY, DESTINATIONS_REQUIRED, UNSUPPORTED_HOST, BUSY and PUBLISHER_FAILED. Show the server message. Do not automatically retry control commands after an uncertain network result; fetch status first. GET requests can be retried. A load operation's failure is reported in status rather than changing its earlier 202 response.
 

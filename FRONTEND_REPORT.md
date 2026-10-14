@@ -136,3 +136,80 @@ The broadcast overlay now identifies outputs only with the JP/EN ring. See `BROA
   - CPU libx264 went from 30.5 to **71.8** fps per output.
   - The run took 50 s. Both still pass, and NVENC remains selected.
 - **Tests and deployment.** The full race suite and `go vet` pass. Staging runs the new binary; the previous one is at `bin/dualsync.prev`.
+
+## Update: quiet pause and music hold (13 October 2026)
+
+Implements `pause_silent`, `music_pause`, `music_play` and `music.paused` from `FRONTEND_HANDOFF.md`.
+
+- **Split play key.** While media plays, the Play key splits down the middle into one shape with two halves. The left half, "Pause / music plays", sends `pause`. The right half, "Quiet / no music", sends `pause_silent`. When paused or ready it returns to a single Resume/Play key. After a quiet pause the console note says idle music is held.
+- **Music hold.** The music box has a hold/play toggle next to Next, sending `music_pause` or `music_play` based on `music.paused`.
+  - While held, the card keeps the song's title, artist and artwork from status, and its heading reads "Idle music, held".
+  - Next stays available while held.
+- **Startup qualification.** While `diagnostics.running` is true and streams are stopped, Start is disabled and the console explains that the encoders are being checked. This covers the backend returning `BUSY` after hardware or software changes.
+- **Deployment.** The panel was deployed to production `/opt/dualsync/webroot` with the user's approval, since it was not in use. The previous files are backed up in `/opt/dualsync/webroot-backup-20261013-033935`. The same files were copied to `/opt/dualsync-dev/src/webroot`.
+- **Verified:**
+  - Read-only render against production, with the playing and held states simulated locally. It fits 1920×1080 in both states; the header poster was reduced to 84 px.
+  - A live hold and play through the production buttons: the song held at 2:16 and resumed from 2:16 with the normal fade.
+  - `pause_silent` was not exercised live, because it needs playing media; the backend's tests cover it.
+
+## Backend change by Claude: `seek_to` and the draggable seek bar (13 October 2026, approved by the user)
+
+- **Backend.**
+  - `POST /api/control` accepts `{"action":"seek_to","value":SECONDS}`. It shares the `seek` code path, so phase handling, music behaviour and decoder restart are identical; only the new position is absolute instead of relative, clamped to the current item.
+  - A missing, null, negative or non-numeric value returns `INVALID_ARGUMENT`. `seek` still only accepts -10, 10 and 80.
+  - Files: `internal/dualsync/engine.go`, the `Command` enum and value description in `api/openapi.yaml` (CRLF line endings kept), the control table in `FRONTEND_HANDOFF.md`, and the new `internal/dualsync/seek_to_test.go`.
+- **Panel.**
+  - The media timeline is a slider. A click or drag shows "Release to jump to 12:34" and moves the playhead locally; it sends one `seek_to` on release. The bar has a 16 px invisible margin so a VR pointer can hit it.
+  - Left and Right arrow keys send `seek` -10/+10. The bar is inactive with no media or while loading.
+- **Verified.**
+  - The full race suite passes.
+  - On an isolated instance with live streams, a drag to 60% while playing landed at 865 s (expected about 864) and kept playing. A click at 25% while paused landed at 360 s and stayed paused. No publisher restarts.
+- **Deployed to production** with the user's approval, since it was not in use.
+  - The binary was built with the release flags (`CGO_ENABLED=0 -trimpath`). The previous one is at `/opt/dualsync/bin/dualsync.prev`; the panel backup is `/opt/dualsync/webroot-backup-20261013-034812`.
+  - Production was restored to episode 22 paused at 21:46 with both streams up.
+
+## Update: Live view (14 October 2026, panel only)
+
+- **What it is.** A Live tab under Console. While it is open, it plays one channel's output over HLS from that channel's MediaMTX server, and a JP Sub / EN Dub toggle switches channels. Leaving the view or hiding the tab disconnects the player.
+- **Address.** `http://HOST:8888/STREAM_PATH/index.m3u8`, where HOST comes from the channel's publishing server URL. A loopback server (127.0.0.1, localhost) maps to the host the panel was opened from. A browser can save its own address per channel under Change; that override lives only in that browser's `localStorage`. No backend or API change.
+- **Player.**
+  - hls.js 1.5.20 is vendored at `webroot/vendor/hls.min.js` (checked against the npm registry's sha512; Apache-2.0 licence alongside), so the panel still needs no internet access.
+  - It starts muted, with a "Sound is off" pill. The volume is remembered and the mute state is not.
+  - For LL-HLS it follows the server's PART-HOLD-BACK. For plain HLS it sits two segments behind. When the picture drifts more than 6 s behind its target, a "Catch up" button appears.
+  - Errors retry every 3 s.
+- **Controls.** These drive the backend, just like the Console:
+  - play/pause, back 10 s, forward 10 s, skip intro (80 s) and a draggable seek bar (`seek_to`, shared with the Console).
+  - Keys: Space plays or pauses; Space twice within 320 ms skips the intro; Left and Right step 10 s; Up and Down change the local volume; M mutes; F toggles fullscreen.
+  - System media keys go through the Media Session API: play, pause, seek backward/forward and next track (skip intro).
+  - Fullscreen covers the whole player, and its controls fade after 2.6 s without movement.
+- **Server state found.**
+  - Zeus (Sub, `127.0.0.1:1935`) serves `hlsVariant: mpegts`, which is plain HLS; it settled at about 4.0 s behind on the LAN with no stalls.
+  - 10.0.0.3 (Dub) serves `hlsVariant: lowLatency`, reaching about 2.5 s. From the development machine (181 ms round trip) it stalled several times, and each stall made hls.js back off by a second.
+  - Both allow anonymous reads and CORS from any origin. MediaMTX 1.21 answers the first request with a `cookieCheck` redirect; hls.js follows it without problems.
+- **Verified.**
+  - Playwright against the production panel, with `/api/control` intercepted, so production transport was not touched:
+    - Both channels played muted.
+    - Each key, button and seek-bar click sent the expected single command. Space with a focused button sent only the play command, not a button press too.
+    - Fullscreen entered and the controls faded.
+    - Leaving the view destroyed the player, and keys stopped acting.
+  - Layout checked at 1920×1080, 1600×900 and 1280×800.
+- **Deployed** to `/opt/dualsync/webroot` and `/opt/dualsync-dev/src/webroot`. Panel backup: `/opt/dualsync/webroot-backup-20261014-020437`.
+
+### Follow-up: smooth playback, full width, optical centring (14 October 2026)
+
+- **Audio chopping on Sub.** The stream was clean: 938 continuous AAC packets in 20 s. The cause was hls.js's latency controller nudging the playback speed between 1.0× and 1.05× every 10 to 15 s.
+  - The player now plays at 1.0× (`maxLiveSyncPlaybackRate: 1`). When playback first starts, it makes one jump to the live target, which removes the extra delay from loading the first fragment.
+  - It plays whole segments only (`lowLatencyMode: false`, two segments behind). In low-latency mode, Dub's parts stalled 4 to 15 times a minute over the 181 ms link from the development machine; in segment mode there were no stalls. Sub plays about 4.1 to 4.5 s behind and Dub about 4.7 s, with steady speed, no stalls and no dropped frames.
+- **Layout.** The player spans the full width of the view. On a short window the picture's height is capped and it sits between black bars. The double-Space hint is a single "2× Space" key.
+- **Optical centring.** Browsers centre the line box, and Zen Kaku Gothic New sets capitals about 1 to 1.6 px below the middle of it. The `--ink` token (0.07 em, calibrated against rendered measurements) handles this:
+  - Text-only bubbles get 2 × ink more padding at the bottom than the top.
+  - Bubbles with an icon lift only the text span, so the icon stays centred.
+  - The 14 px JP/EN tags and the channel names use measured pixel values, because text snaps to whole pixels.
+  - Measured on the first glyph, the bubbles went from 0.4–1.6 px low to within 0.75 px of centre, most within 0.4 px.
+
+### Follow-up: low latency toggle (14 October 2026)
+
+- **Switch.** A "Low latency" switch sits next to the channel toggle. It is saved in that browser's `localStorage` (`ds.live.low`) and reconnects the player straight away.
+  - **Off (default):** whole segments, two behind, about 4.3–4.5 s. Smooth over any link.
+  - **On:** `lowLatencyMode` follows the server's parts and PART-HOLD-BACK. A plain HLS playlist still sits two segments behind. "Catch up" appears 2 s past the target instead of 6.
+- **Measured on 14 October.** Zeus now serves `hlsVariant: lowLatency`. With the switch on, Sub on the LAN played 0.85 s behind. Dub played 1.7 s behind from the development machine, about 181 ms from the overseas server, where stalls are expected. In both modes the playback speed stays fixed at 1.0×.

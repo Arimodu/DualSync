@@ -58,7 +58,7 @@ settings = {'sub_server': string('RTMP/RTSP base URL without path, query or embe
     'music_volume': dict(number(), maximum=100), 'hud_enabled': boolean, 'music_source': string(enum=['folder','plex','off']), 'music_shuffle': boolean, 'plex_server': string(), 'plex_playlist_id': string()}
 schemas['SettingsPatch'] = obj(dict(settings, sub_password=dict(string(), writeOnly=True), dub_password=dict(string(), writeOnly=True), plex_token=dict(string(), writeOnly=True)), [], False)
 schemas['PublicSettings'] = obj(dict(settings, sub_password_set=boolean, dub_password_set=boolean, plex_token_set=boolean), extra=False)
-schemas['Command'] = obj({'action': string(enum=['start', 'stop', 'play', 'pause', 'seek', 'episode', 'unload', 'music_next', 'music_refresh', 'rescan']),
+schemas['Command'] = obj({'action': string(enum=['start', 'stop', 'play', 'pause', 'pause_silent', 'seek', 'episode', 'unload', 'music_play', 'music_pause', 'music_next', 'music_refresh', 'rescan']),
     'value': {'type': ['number', 'null'], 'description': 'seek accepts -10, 10 or 80 seconds; episode accepts a one-based playlist item; omit for other actions.'}}, ['action'], False)
 schemas['Output'] = obj({'ready': boolean, 'pid': integer(), 'out_time': number(), 'restarts': integer(),
     'error': string(), 'queued_frames': dict(integer(), maximum=8), 'encoder': string(enum=['nvenc', 'qsv', 'vaapi', 'cpu'])})
@@ -66,7 +66,7 @@ schemas['Operation'] = obj({'id': integer(), 'state': string(enum=['idle', 'runn
 schemas['Media'] = obj({'phase': string(enum=['none', 'loading', 'ready', 'playing', 'paused', 'resuming', 'seeking', 'buffering', 'ended']),
     'mode': string(enum=['', 'single', 'paired']), 'title': string(), 'index': integer(), 'total': integer(),
     'position': number(), 'duration': number(), 'items': array(ref('Item')), 'operation': ref('Operation')})
-schemas['Music'] = obj({'active': boolean, 'title': string(), 'artist': string(), 'album_artist': string(), 'album': string(),
+schemas['Music'] = obj({'active': boolean, 'paused': dict(boolean, description='Explicit music hold set by music_pause or pause_silent. music_play and normal pause clear it. Media playback still holds music independently.'), 'title': string(), 'artist': string(), 'album_artist': string(), 'album': string(),
     'position': number(), 'duration': number(), 'gain': dict(number(), maximum=1), 'cover_url': string(), 'path': string(), 'source':string(enum=['folder','plex','off']), 'playlist_id':string(), 'playlist_title':string(), 'ready_count':dict(integer(),maximum=3), 'preparation_state':string(enum=['idle','preparing','ready','failed']), 'error':string(), 'upcoming':array(ref('MusicUpcoming'))})
 schemas['MusicUpcoming']=obj({'path':string(),'title':string(),'artist':string(),'duration':number(),'cover_url':string()})
 schemas['Media']['properties']['metadata']=ref('VideoMetadata')

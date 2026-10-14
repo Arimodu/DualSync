@@ -2,6 +2,23 @@
 
 The Go release 0.4.0 replaced the Python service on 9 October 2026.
 
+On 13 October 2026, the backend was updated with automatic requalification after
+a fingerprint change and preservation of prepared songs during automatic Plex
+music refresh. See `STARTUP_REPORT.md` for the investigation and regression tests.
+
+A subsequent music update preserves shuffle history across automatic catalog
+refreshes. Every unique song is selected once before a new cycle starts; prepared
+songs count as selected and keep their queue order. Regression tests cover repeated
+catalog refreshes, duplicate entries, cycle boundaries, catalog changes and a
+one-song source. Queue and Plex integration tests passed with the race detector;
+`go vet ./...` also passed.
+
+Music controls now include `music_play` and `music_pause`. `pause_silent` pauses
+media and holds music without advancing its position; normal `pause` resumes
+music. The API exposes the explicit hold as `music.paused`. The full race suite,
+OpenAPI response checks and vet passed before this backend update. The frontend
+was retained; `FRONTEND_HANDOFF.md` defines the new actions for its next update.
+
 The panel and API are available at `http://172.16.0.52:8090`. The enabled
 `dualsync.service` starts the backend at boot. Publishing still starts manually.
 

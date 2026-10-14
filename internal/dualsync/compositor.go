@@ -28,6 +28,7 @@ type MusicInfo struct {
 	Upcoming         []MusicUpcoming `json:"upcoming"`
 	Error            string          `json:"error"`
 	Active           bool            `json:"active"`
+	Paused           bool            `json:"paused"`
 	Title            string          `json:"title"`
 	Artist           string          `json:"artist"`
 	AlbumArtist      string          `json:"album_artist"`

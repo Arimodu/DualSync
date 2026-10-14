@@ -28,6 +28,7 @@ const SIDES = ['sub', 'dub'];
 const SIDE = {sub: 'Sub', dub: 'Dub'};
 const MARK = {sub: '字幕', dub: '吹替'};
 const PHASE = {none: 'No media', loading: 'Loading', ready: 'Ready', playing: 'Playing', paused: 'Paused', resuming: 'Resuming', seeking: 'Seeking', buffering: 'Buffering', ended: 'Finished'};
+const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 const basename = p => (p || '').split('/').filter(Boolean).pop() || '';
 const dirname = p => (p || '').split('/').slice(0, -1).join('/');
 function clock(sec) {
@@ -152,7 +153,7 @@ async function command(action, value, label = action) {
 }
 
 // ---------- views ----------
-const VIEWS = ['console', 'library', 'streams', 'system'];
+const VIEWS = ['console', 'live', 'library', 'streams', 'system'];
 function route() {
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'console';
   for (const name of VIEWS) $('v-' + name).hidden = name !== v;
@@ -161,6 +162,7 @@ function route() {
   }
   if (v === 'console') scrollEpisodes = true;
   render();
+  liveSync();
 }
 addEventListener('hashchange', route);
 
@@ -190,6 +192,7 @@ function render() {
   const running = s.mode !== 'stopped';
   renderConsole(s, running);
   renderMusic(s, running);
+  renderLive(s, running);
   renderLibrary();
   renderBuilder();
   renderSettings(s, running);
@@ -319,7 +322,11 @@ function renderConsole(s, running) {
   const sb = $('streamBtn');
   sb.className = 'btn ' + (running ? 'stop' : 'go');
   sb.querySelector('span').textContent = S.pending === 'Start streams' ? 'Starting' : S.pending === 'Stop streams' ? 'Stopping' : running ? 'Stop streams' : 'Start streams';
-  sb.disabled = !!S.pending || (!running && !configured);
+  // After a hardware, driver or FFmpeg change the backend re-qualifies the encoders at startup and
+  // refuses Start until that finishes.
+  const qualifying = s.diagnostics.running;
+  sb.disabled = !!S.pending || (!running && (!configured || qualifying));
+  sb.title = !running && qualifying ? 'Checking the encoders. Start is available when it finishes.' : '';
 
   // load operation
   const op = m.operation, opBox = $('operation');
@@ -385,13 +392,23 @@ function renderConsole(s, running) {
   // transport
   const settled = phase !== 'none' && phase !== 'loading';
   const pausable = ['playing', 'resuming', 'buffering'].includes(phase);
-  const play = $('kPlay');
+  const play = $('kPlay'), quiet = $('kQuiet'), playSub = $('kPlaySub');
   play.querySelector('use').setAttribute('href', pausable ? '#i-pause' : phase === 'ended' ? '#i-replay' : '#i-play');
   play.querySelector('span').textContent = pausable ? 'Pause' : phase === 'paused' ? 'Resume' : phase === 'ended' ? 'Replay' : 'Play';
   play.disabled = !!S.pending || !(pausable || (running && ['ready', 'paused', 'ended'].includes(phase)));
+  // While playing the key splits: Pause keeps idle music, Quiet pauses without it.
+  $('playSplit').classList.toggle('split', pausable);
+  quiet.hidden = !pausable;
+  quiet.disabled = !!S.pending;
+  playSub.hidden = !pausable;
+  playSub.textContent = 'music plays';
+  play.title = pausable ? 'Pause with idle music' : '';
   for (const k of ['kBack', 'kFwd', 'kSkip']) $(k).disabled = !!S.pending || !settled;
+  $('seekbar').classList.toggle('off', !settled || !m.duration);
+  $('seekbar').setAttribute('aria-disabled', String(!settled || !m.duration));
   $('kUnload').disabled = !!S.pending || phase === 'none';
   $('consoleNote').textContent =
+    !running && s.diagnostics.running ? 'Checking the encoders after a hardware or software change. Start is available when it finishes, usually within a minute.' :
     !configured && !running ? 'Add both servers in Streams before starting.' :
     phase === 'none' ? (running ? 'Both streams are showing the idle screen. Choose an episode in the library.' : '') :
     phase === 'loading' ? 'Loading. Playback waits for you to press Play.' :
@@ -432,19 +449,28 @@ function songTitle(x) { return x.title || niceTitle(x.path.startsWith('plex:') ?
 let upSig = '';
 function renderMusic(s, running) {
   const mu = s.music, st = s.settings, off = st.music_source === 'off';
-  $('musicHead').textContent = mu.active && mu.gain > 0 ? `Idle music, playing at ${Math.round(mu.gain * 100)}%` : 'Idle music';
+  const held = !!mu.paused, hasSong = !!(mu.title || mu.path);
+  $('musicHead').textContent = held ? 'Idle music, held' : mu.active && mu.gain > 0 ? `Idle music, playing at ${Math.round(mu.gain * 100)}%` : 'Idle music';
   $('musicSource').textContent = musicSourceLabel(s);
-  $('mTitle').textContent = mu.active ? songTitle(mu)
+  const showSong = mu.active || (held && hasSong);
+  $('mTitle').textContent = showSong ? songTitle(mu)
     : off ? 'Music is off'
+    : held ? 'Music held'
     : mu.preparation_state === 'preparing' ? 'Getting songs ready'
     : 'Plays while paused or idle';
-  $('mArtist').textContent = mu.active ? [mu.album_artist || mu.artist, mu.album].filter(Boolean).join(', ')
+  $('mArtist').textContent = showSong ? [mu.album_artist || mu.artist, mu.album].filter(Boolean).join(', ')
     : off ? 'Turn it on in Streams.' : '';
   const img = $('cover');
-  if (mu.active && mu.cover_url) { if (img.getAttribute('src') !== mu.cover_url) img.src = mu.cover_url; img.hidden = false; }
+  if (showSong && mu.cover_url) { if (img.getAttribute('src') !== mu.cover_url) img.src = mu.cover_url; img.hidden = false; }
   else { img.hidden = true; img.removeAttribute('src'); }
   $('artNone').style.display = img.hidden ? '' : 'none';
-  $('musicNext').disabled = !!S.pending || !running || off || !(mu.active || mu.ready_count > 0);
+  $('musicNext').disabled = !!S.pending || !running || off || !(mu.active || held || mu.ready_count > 0);
+  const hold = $('musicHold');
+  hold.disabled = !!S.pending || !running || off;
+  hold.setAttribute('aria-pressed', String(held));
+  hold.querySelector('use').setAttribute('href', held ? '#i-play' : '#i-pause');
+  hold.title = held ? 'Play music' : 'Hold music';
+  hold.setAttribute('aria-label', hold.title);
   if (!M.volDragging) { $('consoleVol').value = st.music_volume; $('consoleVolLabel').textContent = st.music_volume + '%'; }
 
   const up = mu.upcoming || [];
@@ -475,14 +501,25 @@ function tick() {
   const s = S.status;
   if (!s) return;
   const dt = (performance.now() - S.at) / 1000, m = s.media;
-  const pos = m.phase === 'playing' && S.online ? Math.min(m.duration || Infinity, m.position + dt) : m.position;
+  const live = m.phase === 'playing' && S.online ? Math.min(m.duration || Infinity, m.position + dt) : m.position;
+  // While the seek bar is held, or its jump is on its way, show the target instead of the live position.
+  const pos = SEEK.target != null ? SEEK.target : live;
   const pct = m.duration ? Math.min(100, pos / m.duration * 100) : 0;
   $('clock').textContent = clock(pos);
   $('total').textContent = 'of ' + clock(m.duration);
-  $('tlDone').style.width = pct + '%';
-  $('tlHead').style.left = pct + '%';
   $('tlEnd').textContent = clock(m.duration);
-  $('tlNote').textContent = m.duration ? `${clock(Math.max(0, m.duration - pos))} left` : '';
+  const note = $('tlNote');
+  note.className = SEEK.drag ? 'target' : '';
+  note.textContent = SEEK.drag ? `Release to jump to ${clock(pos)}` : m.duration ? `${clock(Math.max(0, m.duration - pos))} left` : '';
+  for (const bar of [$('seekbar'), $('liveSeek')]) {
+    bar.querySelector('.done').style.width = pct + '%';
+    bar.querySelector('.playhead').style.left = pct + '%';
+    bar.setAttribute('aria-valuemax', String(Math.round(m.duration || 0)));
+    bar.setAttribute('aria-valuenow', String(Math.round(pos)));
+    bar.setAttribute('aria-valuetext', `${clock(pos)} of ${clock(m.duration)}`);
+  }
+  $('lTime').textContent = m.duration ? `${clock(pos)} / ${clock(m.duration)}` : '';
+  liveTick();
   const mu = s.music;
   const mpos = S.musicMoving && S.online ? Math.min(mu.duration || Infinity, mu.position + dt) : mu.position;
   $('mBar').style.width = mu.active && mu.duration ? `${Math.min(100, mpos / mu.duration * 100)}%` : '0';
@@ -492,14 +529,390 @@ setInterval(tick, 250);
 
 // ---------- console controls ----------
 $('streamBtn').onclick = () => S.status && (S.status.mode === 'stopped' ? command('start', undefined, 'Start streams') : command('stop', undefined, 'Stop streams'));
-$('kPlay').onclick = () => {
+$('kQuiet').onclick = () => command('pause_silent', undefined, 'Pause quietly');
+
+// ---------- seek bars ----------
+// Click anywhere or drag the playhead; the jump is sent once, on release. Arrow keys step 10 s.
+// The console and the Live player each have one; both show the same position.
+const SEEK = {drag: false, target: null, pointer: null, el: null};
+function canSeek() {
+  const m = S.status?.media;
+  return !!m && m.duration > 0 && !['none', 'loading'].includes(m.phase) && !S.pending;
+}
+function seekAt(ev) {
+  const r = SEEK.el.querySelector('.bar').getBoundingClientRect();
+  return clamp((ev.clientX - r.left) / r.width, 0, 1) * S.status.media.duration;
+}
+async function endSeek(ev, commit) {
+  if (!SEEK.drag || ev.pointerId !== SEEK.pointer) return;
+  SEEK.drag = false;
+  SEEK.el.classList.remove('dragging');
+  const target = SEEK.target;
+  if (commit && target != null) await command('seek_to', Math.round(target * 1000) / 1000, 'Seek');
+  SEEK.target = null;
+  tick();
+}
+function seekbar(el) {
+  el.addEventListener('pointerdown', ev => {
+    if (!canSeek() || ev.button > 0) return;
+    ev.preventDefault();
+    el.setPointerCapture(ev.pointerId);
+    SEEK.drag = true; SEEK.pointer = ev.pointerId; SEEK.el = el; SEEK.target = seekAt(ev);
+    el.classList.add('dragging');
+    tick();
+  });
+  el.addEventListener('pointermove', ev => {
+    if (!SEEK.drag || ev.pointerId !== SEEK.pointer) return;
+    SEEK.target = seekAt(ev);
+    tick();
+  });
+  el.addEventListener('pointerup', ev => endSeek(ev, true));
+  el.addEventListener('pointercancel', ev => endSeek(ev, false));
+  el.addEventListener('keydown', ev => {
+    if (!canSeek() || !['ArrowLeft', 'ArrowRight'].includes(ev.key)) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    command('seek', ev.key === 'ArrowLeft' ? -10 : 10, 'Seek');
+  });
+}
+seekbar($('seekbar'));
+seekbar($('liveSeek'));
+function togglePlay() {
   const ph = S.status?.media.phase;
   if (['playing', 'resuming', 'buffering'].includes(ph)) command('pause', undefined, 'Pause');
   else command('play', undefined, 'Play');
-};
+}
+$('kPlay').onclick = togglePlay;
 for (const id of ['kBack', 'kFwd', 'kSkip']) $(id).onclick = () => command('seek', Number($(id).dataset.seek), 'Seek');
 $('kUnload').onclick = () => command('unload', undefined, 'Unload');
 $('musicNext').onclick = () => command('music_next', undefined, 'Next song');
+$('musicHold').onclick = () => S.status?.music.paused ? command('music_play', undefined, 'Play music') : command('music_pause', undefined, 'Hold music');
+
+// ---------- live ----------
+// Watches one channel's output over low-latency HLS from its MediaMTX server, only while the Live
+// view is open. The player is a monitor: its controls, keys and media keys drive the backend, so
+// Pause here pauses both streams. The picture always follows the live edge.
+function store(key, value) {
+  try {
+    if (value === undefined) return localStorage.getItem(key);
+    if (value === null) localStorage.removeItem(key); else localStorage.setItem(key, String(value));
+  } catch { /* storage may be blocked; everything still works for this visit */ }
+  return null;
+}
+const LIVE = {
+  side: store('ds.live.side') === 'dub' ? 'dub' : 'sub',
+  hls: null, url: '', state: 'idle', error: '', attempts: 0, retryTimer: 0,
+  muted: true, volume: clamp(Number(store('ds.live.volume') ?? 100) || 0, 0, 100),
+  low: store('ds.live.low') === '1',
+  spaceTimer: 0, wakeTimer: 0, editing: false,
+};
+const HLS_PORT = 8888; // MediaMTX default
+const liveOpen = () => !$('v-live').hidden && !document.hidden;
+
+// The HLS address comes from the channel's publishing server unless this browser saved its own.
+// A loopback server runs beside DualSync, so the browser reaches it by the panel's own host.
+function defaultLiveUrl(side) {
+  const st = S.status?.settings, server = st?.[side + '_server'];
+  const path = (st?.stream_path || '').replace(/^\/+|\/+$/g, '');
+  const m = /^[a-z][a-z0-9+.-]*:\/\/(?:[^@/]*@)?(\[[^\]]+\]|[^:/?#]+)/i.exec(server || '');
+  if (!m || !path) return '';
+  const host = /^(localhost|127\.\d+\.\d+\.\d+|\[::1\])$/i.test(m[1]) ? location.hostname : m[1];
+  return `http://${host}:${HLS_PORT}/${path}/index.m3u8`;
+}
+const liveUrl = side => store('ds.live.url.' + side) || defaultLiveUrl(side);
+
+function liveDisconnect() {
+  clearTimeout(LIVE.retryTimer);
+  LIVE.hls?.destroy();
+  LIVE.hls = null; LIVE.url = ''; LIVE.state = 'idle';
+  const v = $('liveVideo');
+  if (v.hasAttribute('src')) { v.removeAttribute('src'); v.load(); }
+}
+function liveConnect(url) {
+  liveDisconnect();
+  LIVE.url = url; LIVE.state = 'connecting';
+  const v = $('liveVideo');
+  v.muted = LIVE.muted;
+  v.volume = LIVE.volume / 100;
+  if (window.Hls?.isSupported()) {
+    const hls = new Hls({
+      // Standard: whole segments, two behind, about 4 s on either MediaMTX variant and smooth over
+      // any link. Low latency: LL-HLS parts and the server's PART-HOLD-BACK, about 1 to 2.5 s, for
+      // a server close by; over a long link the parts stall.
+      lowLatencyMode: LIVE.low,
+      ...(LIVE.low ? {} : {liveSyncDurationCount: 2}),
+      // No speed catch-up: hls.js nudges the rate between 1 and 1.05 to hold its target, and every
+      // change is an audible hiccup. Real drift gets the Catch up button instead.
+      maxLiveSyncPlaybackRate: 1,
+      backBufferLength: 8,
+      manifestLoadingMaxRetry: 2,
+      levelLoadingMaxRetry: 2,
+    });
+    LIVE.hls = hls;
+    // In low latency mode a plain HLS playlist has no hold-back, so hls.js would sit three segments
+    // behind; keep it at two. (Setting it up front would override the LL-HLS hold-back.)
+    if (LIVE.low) hls.once(Hls.Events.LEVEL_LOADED, (_, d) => {
+      if (!d.details.partList) hls.userConfig.liveSyncDurationCount = hls.config.liveSyncDurationCount = 2;
+    });
+    hls.on(Hls.Events.ERROR, (_, d) => {
+      if (!d.fatal || LIVE.hls !== hls) return;
+      if (d.type === Hls.ErrorTypes.MEDIA_ERROR && LIVE.attempts < 2) { LIVE.attempts++; hls.recoverMediaError(); return; }
+      liveFail(d.response?.code ? `The server answered ${d.response.code}.` : d.type === Hls.ErrorTypes.NETWORK_ERROR ? 'The server did not answer.' : 'The stream could not be decoded.');
+    });
+    hls.loadSource(url);
+    hls.attachMedia(v);
+  } else if (v.canPlayType('application/vnd.apple.mpegurl')) {
+    v.src = url;
+  } else {
+    LIVE.state = 'error'; LIVE.error = 'This browser cannot play HLS.';
+    return;
+  }
+  livePlay();
+}
+function livePlay() {
+  const v = $('liveVideo');
+  v.play().catch(() => {
+    // Sound is only allowed after a click or key on this page; fall back to a muted picture.
+    if (!v.muted) { LIVE.muted = v.muted = true; v.play().catch(() => {}); renderLiveAudio(); }
+  });
+}
+function liveFail(reason) {
+  const url = LIVE.url;
+  LIVE.hls?.destroy();
+  LIVE.hls = null;
+  LIVE.state = 'error'; LIVE.error = reason; LIVE.attempts++;
+  render();
+  LIVE.retryTimer = setTimeout(() => { if (LIVE.url === url) { LIVE.url = ''; liveSync(); } }, 3000);
+}
+function liveSync() {
+  const s = S.status, url = liveUrl(LIVE.side);
+  const want = liveOpen() && s && s.mode !== 'stopped' && url ? url : '';
+  if (!want) { if (LIVE.url) liveDisconnect(); return; }
+  if (want === LIVE.url) return;
+  // Connect once the channel is publishing; a restart after that is ridden out by the player.
+  if (s.outputs[LIVE.side]?.ready) liveConnect(want);
+}
+{
+  const v = $('liveVideo');
+  v.addEventListener('playing', () => {
+    if (!LIVE.url) return;
+    // Without speed catch-up the first fragment's load time stays as extra delay; one jump to the
+    // target as playback starts removes it before anyone hears it.
+    const hls = LIVE.hls;
+    if (LIVE.state !== 'live' && hls && hls.latency > hls.targetLatency + 0.75 && Number.isFinite(hls.liveSyncPosition)) v.currentTime = hls.liveSyncPosition;
+    LIVE.state = 'live'; LIVE.error = ''; LIVE.attempts = 0; render();
+  });
+  v.addEventListener('waiting', () => { if (LIVE.state === 'live') { LIVE.state = 'buffering'; render(); } });
+  v.addEventListener('error', () => { if (LIVE.url && !LIVE.hls) liveFail('The stream could not be played.'); });
+  // The monitor never stays paused; the backend's pause screen is part of the stream.
+  v.addEventListener('pause', () => { if (LIVE.url && liveOpen()) setTimeout(() => LIVE.url && v.paused && livePlay(), 400); });
+}
+document.addEventListener('visibilitychange', liveSync);
+
+function setLiveSide(side) {
+  if (side === LIVE.side) return;
+  LIVE.side = side; LIVE.attempts = 0;
+  store('ds.live.side', side);
+  liveDisconnect();
+  LIVE.editing = false;
+  render();
+  liveSync();
+}
+for (const b of document.querySelectorAll('#watchSide button')) b.onclick = () => setLiveSide(b.dataset.side);
+$('lowLat').onclick = () => {
+  LIVE.low = !LIVE.low; LIVE.attempts = 0;
+  store('ds.live.low', LIVE.low ? '1' : null);
+  liveDisconnect();
+  render();
+  liveSync();
+};
+
+// audio
+function renderLiveAudio() {
+  const v = $('liveVideo'), quiet = LIVE.muted || LIVE.volume === 0;
+  $('lMute').querySelector('use').setAttribute('href', quiet ? '#i-muted' : '#i-sound');
+  $('lMute').setAttribute('aria-label', LIVE.muted ? 'Turn sound on' : 'Mute');
+  $('lMute').title = $('lMute').getAttribute('aria-label') + ' (M)';
+  $('lVol').value = String(LIVE.muted ? 0 : LIVE.volume);
+  $('unmute').hidden = !LIVE.muted || !LIVE.url;
+  v.muted = LIVE.muted;
+  v.volume = LIVE.volume / 100;
+}
+function setLiveMuted(muted) {
+  LIVE.muted = muted;
+  if (!muted && LIVE.volume === 0) LIVE.volume = 50;
+  renderLiveAudio();
+}
+function setLiveVolume(volume) {
+  LIVE.volume = clamp(Math.round(volume), 0, 100);
+  LIVE.muted = LIVE.volume === 0;
+  store('ds.live.volume', LIVE.volume || 50);
+  renderLiveAudio();
+}
+$('lMute').onclick = () => setLiveMuted(!LIVE.muted);
+$('unmute').onclick = () => setLiveMuted(false);
+$('lVol').oninput = () => setLiveVolume(Number($('lVol').value));
+
+// fullscreen: the whole stage goes fullscreen so the controls come along
+const fullEl = () => document.fullscreenElement || document.webkitFullscreenElement;
+function toggleFullscreen() {
+  const st = $('stage'), v = $('liveVideo');
+  if (fullEl()) (document.exitFullscreen || document.webkitExitFullscreen)?.call(document)?.catch?.(() => {});
+  else if (st.requestFullscreen || st.webkitRequestFullscreen) (st.requestFullscreen || st.webkitRequestFullscreen).call(st)?.catch?.(() => {});
+  else v.webkitEnterFullscreen?.();
+}
+function wake() {
+  // In fullscreen the controls fade out after a few still seconds and come back on any movement.
+  const st = $('stage');
+  st.classList.add('awake');
+  clearTimeout(LIVE.wakeTimer);
+  LIVE.wakeTimer = setTimeout(() => { if (!st.querySelector('.ctl:hover') && !SEEK.drag) st.classList.remove('awake'); else wake(); }, 2600);
+}
+for (const ev of ['fullscreenchange', 'webkitfullscreenchange']) document.addEventListener(ev, () => {
+  const on = !!fullEl();
+  $('lFull').querySelector('use').setAttribute('href', on ? '#i-full-exit' : '#i-full');
+  $('lFull').setAttribute('aria-label', on ? 'Exit fullscreen' : 'Fullscreen');
+  $('lFull').title = $('lFull').getAttribute('aria-label') + ' (F)';
+  wake();
+});
+$('lFull').onclick = toggleFullscreen;
+$('stage').addEventListener('pointermove', wake);
+$('liveVideo').addEventListener('dblclick', toggleFullscreen);
+
+// transport, passed through to the backend
+function liveSeek(by) { if (canSeek()) command('seek', by, by === 80 ? 'Skip intro' : 'Seek'); }
+$('lPlay').onclick = togglePlay;
+$('lBack').onclick = () => liveSeek(-10);
+$('lFwd').onclick = () => liveSeek(10);
+$('lSkip').onclick = () => liveSeek(80);
+
+// Keys work anywhere in the Live view, fullscreen included. Space waits a moment for a second
+// press: once is play or pause, twice quickly is skip intro.
+const typing = t => t instanceof HTMLElement && (t.isContentEditable || t.matches('textarea, select, input:not([type=range])'));
+document.addEventListener('keydown', ev => {
+  if (!liveOpen() || ev.ctrlKey || ev.metaKey || ev.altKey || typing(ev.target)) return;
+  const k = ev.key === ' ' ? 'Space' : ev.key;
+  if (ev.target.type === 'range' && k.startsWith('Arrow')) return; // the slider handles its own arrows
+  const act = {
+    Space: () => {
+      if (ev.repeat) return;
+      if (LIVE.spaceTimer) { clearTimeout(LIVE.spaceTimer); LIVE.spaceTimer = 0; liveSeek(80); return; }
+      LIVE.spaceTimer = setTimeout(() => { LIVE.spaceTimer = 0; togglePlay(); }, 320);
+    },
+    ArrowLeft: () => liveSeek(-10),
+    ArrowRight: () => liveSeek(10),
+    ArrowUp: () => setLiveVolume((LIVE.muted ? 0 : LIVE.volume) + 10),
+    ArrowDown: () => setLiveVolume((LIVE.muted ? 0 : LIVE.volume) - 10),
+    m: () => setLiveMuted(!LIVE.muted), M: () => setLiveMuted(!LIVE.muted),
+    f: toggleFullscreen, F: toggleFullscreen,
+  }[k];
+  if (!act) return;
+  ev.preventDefault(); // also keeps Space from pressing a focused button
+  wake();
+  act();
+}, true);
+document.addEventListener('keyup', ev => { if (liveOpen() && ev.key === ' ' && !typing(ev.target)) ev.preventDefault(); }, true);
+
+// Hardware and system media keys reach the backend while the monitor is playing.
+if ('mediaSession' in navigator) {
+  const ms = navigator.mediaSession;
+  const on = (action, fn) => { try { ms.setActionHandler(action, fn); } catch { /* unsupported action */ } };
+  const pausable = () => ['playing', 'resuming', 'buffering'].includes(S.status?.media.phase);
+  on('play', () => { if (!pausable()) togglePlay(); });
+  on('pause', () => { if (pausable()) togglePlay(); });
+  on('stop', () => { if (pausable()) togglePlay(); });
+  on('seekbackward', () => liveSeek(-10));
+  on('seekforward', () => liveSeek(10));
+  on('nexttrack', () => liveSeek(80));
+}
+let sessionSig = '';
+function liveMediaSession(s) {
+  if (!('mediaSession' in navigator) || !LIVE.url) return;
+  const ms = navigator.mediaSession;
+  ms.playbackState = ['playing', 'resuming', 'buffering'].includes(s.media.phase) ? 'playing' : 'paused';
+  const poster = s.media.metadata?.poster_url;
+  const sig = JSON.stringify([$('headline').textContent, $('series').textContent, poster, LIVE.side]);
+  if (sig === sessionSig || !window.MediaMetadata) return;
+  sessionSig = sig;
+  ms.metadata = new MediaMetadata({
+    title: $('headline').textContent,
+    artist: `${$('series').textContent}, ${SIDE[LIVE.side]}`,
+    artwork: poster ? [{src: new URL(poster, location.href).href}] : [],
+  });
+}
+
+// address
+$('liveUrlEdit').onclick = () => { LIVE.editing = true; $('liveUrlInput').value = liveUrl(LIVE.side); render(); $('liveUrlInput').focus(); };
+$('liveUrlCancel').onclick = () => { LIVE.editing = false; render(); };
+$('liveUrlReset').onclick = () => { store('ds.live.url.' + LIVE.side, null); LIVE.editing = false; LIVE.attempts = 0; liveDisconnect(); render(); liveSync(); };
+$('liveUrlForm').onsubmit = ev => {
+  ev.preventDefault();
+  const url = $('liveUrlInput').value.trim();
+  store('ds.live.url.' + LIVE.side, url && url !== defaultLiveUrl(LIVE.side) ? url : null);
+  LIVE.editing = false; LIVE.attempts = 0;
+  liveDisconnect(); render(); liveSync();
+};
+
+function renderLive(s, running) {
+  liveSync();
+  const m = s.media, phase = m.phase, side = LIVE.side, name = SIDE[side];
+  const out = s.outputs[side], url = liveUrl(side), custom = !!store('ds.live.url.' + side);
+  $('liveSeries').textContent = phase === 'none' ? 'Live' : $('series').textContent;
+  $('liveHead').textContent = phase === 'none' ? 'Nothing loaded' : $('headline').textContent;
+  for (const b of document.querySelectorAll('#watchSide button')) b.setAttribute('aria-pressed', String(b.dataset.side === side));
+  $('lowLat').setAttribute('aria-checked', String(LIVE.low));
+
+  const st = $('stage');
+  st.className = 'stage ' + side + (LIVE.state === 'live' ? ' live' : '') + (st.classList.contains('awake') ? ' awake' : '');
+  let msg = null;
+  if (!url) msg = ['', `No ${name} server`, `Add the ${name} server in Streams to watch it here.`];
+  else if (!running) msg = ['', 'Streams are stopped', 'Start them in the Console to watch here.'];
+  else if (!LIVE.url && !out?.ready) msg = ['wait', `Starting the ${name} stream`, ''];
+  else if (LIVE.state === 'error') msg = ['wait', `Can't play the ${name} stream`, `${LIVE.error} Trying again.`];
+  else if (LIVE.state === 'connecting' || LIVE.state === 'idle') msg = ['wait', `Connecting to ${name}`, ''];
+  const box = $('stageMsg');
+  box.hidden = !msg;
+  if (msg) {
+    box.querySelector('.spinner').hidden = msg[0] !== 'wait';
+    box.querySelector('b').textContent = msg[1];
+    box.querySelector('span').textContent = msg[2];
+  }
+  $('stageBuffer').hidden = LIVE.state !== 'buffering';
+
+  const settled = phase !== 'none' && phase !== 'loading';
+  const pausable = ['playing', 'resuming', 'buffering'].includes(phase);
+  const lp = $('lPlay');
+  lp.querySelector('use').setAttribute('href', pausable ? '#i-pause' : phase === 'ended' ? '#i-replay' : '#i-play');
+  lp.setAttribute('aria-label', pausable ? 'Pause' : phase === 'paused' ? 'Resume' : phase === 'ended' ? 'Replay' : 'Play');
+  lp.title = lp.getAttribute('aria-label') + ' (Space)';
+  lp.disabled = !!S.pending || !(pausable || (running && ['ready', 'paused', 'ended'].includes(phase)));
+  for (const k of ['lBack', 'lFwd', 'lSkip']) $(k).disabled = !!S.pending || !settled;
+  $('liveSeek').classList.toggle('off', !settled || !m.duration);
+  $('liveSeek').setAttribute('aria-disabled', String(!settled || !m.duration));
+  renderLiveAudio();
+
+  $('liveUrlForm').hidden = !LIVE.editing;
+  $('liveUrlShow').hidden = LIVE.editing;
+  $('liveUrl').textContent = url || 'No address';
+  $('liveUrlNote').textContent = custom ? 'Set in this browser' : '';
+  $('liveUrlReset').hidden = !custom;
+  liveMediaSession(s);
+}
+
+// Runs with the clock: how far the picture is behind the stream, and a catch-up when it drifts.
+function liveTick() {
+  const lat = $('lLat'), hls = LIVE.hls;
+  if (!liveOpen() || !hls || LIVE.state !== 'live' || !Number.isFinite(hls.latency) || hls.latency <= 0) { lat.hidden = true; return; }
+  const behind = hls.latency, far = behind > (hls.targetLatency || 3) + (LIVE.low ? 2 : 6);
+  lat.hidden = false;
+  lat.classList.toggle('far', far);
+  lat.disabled = !far;
+  lat.textContent = far ? `${behind.toFixed(1)} s behind. Catch up` : `${behind.toFixed(1)} s behind`;
+}
+$('lLat').onclick = () => {
+  const hls = LIVE.hls, v = $('liveVideo');
+  if (hls && Number.isFinite(hls.liveSyncPosition)) v.currentTime = hls.liveSyncPosition;
+};
 
 // ---------- library browser: files and Plex ----------
 // One browser, two sources. Files come from the media root; Plex from the configured server.

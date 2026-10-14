@@ -29,6 +29,11 @@
     <symbol id="i-note" viewBox="0 0 48 48"><path d="M18 34V11l20-4v22" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><circle cx="13" cy="35" r="5.5" fill="currentColor"/><circle cx="33" cy="30" r="5.5" fill="currentColor"/></symbol>
     <symbol id="i-up" viewBox="0 0 48 48"><path d="M24 38V12M13 22l11-11 11 11" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-x" viewBox="0 0 48 48"><path d="M14 14l20 20M34 14 14 34" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+    <symbol id="i-live" viewBox="0 0 48 48"><rect x="5" y="8" width="38" height="27" rx="5" fill="none" stroke="currentColor" stroke-width="3.4"/><path d="M20 15.5v12l10-6z" fill="currentColor"/><path d="M15 41h18" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 48 48"><path d="M7 19h7l10-8v26l-10-8H7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M30.5 17.5a9 9 0 0 1 0 13M35 12a16 16 0 0 1 0 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-muted" viewBox="0 0 48 48"><path d="M7 19h7l10-8v26l-10-8H7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M31 19l10 10M41 19 31 29" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-full" viewBox="0 0 48 48"><path d="M8 18V8h10M30 8h10v10M40 30v10H30M18 40H8V30" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-full-exit" viewBox="0 0 48 48"><path d="M18 8v10H8M40 18H30V8M30 40V30h10M8 30h10v10" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
@@ -36,6 +41,7 @@
   <nav class="rail" aria-label="Sections">
     <div class="brand" aria-label="DualSync"><span class="brand-mark" aria-hidden="true">双</span><span>DualSync</span></div>
     <a class="tab" href="#console" data-view="console"><svg><use href="#i-console"/></svg>Console</a>
+    <a class="tab" href="#live" data-view="live"><svg><use href="#i-live"/></svg>Live</a>
     <a class="tab" href="#library" data-view="library"><svg><use href="#i-library"/></svg>Library</a>
     <a class="tab" href="#streams" data-view="streams"><svg><use href="#i-dest"/></svg>Streams</a>
     <a class="tab" href="#system" data-view="system"><svg><use href="#i-chip"/></svg>System</a>
@@ -86,14 +92,21 @@
       </div>
 
       <div class="timeline">
-        <div class="bar" aria-hidden="true"><div class="done" id="tlDone"></div><div class="playhead" id="tlHead"></div></div>
+        <!-- The padding around the bar is part of the target, so a VR pointer does not have to hit 22 px. -->
+        <div class="seekbar" id="seekbar" role="slider" tabindex="0" aria-label="Episode position" aria-valuemin="0">
+          <div class="bar"><div class="done" id="tlDone"></div><div class="playhead" id="tlHead"></div></div>
+        </div>
         <div class="tl-labels"><span>0:00</span><span id="tlNote"></span><span id="tlEnd">0:00</span></div>
       </div>
 
       <div class="transport">
         <button class="key" id="kBack" data-seek="-10"><svg><use href="#i-back"/></svg><small>Back 10 s</small></button>
         <button class="key" id="kFwd" data-seek="10"><svg><use href="#i-fwd"/></svg><small>Forward 10 s</small></button>
-        <button class="key play" id="kPlay"><svg><use href="#i-play"/></svg><span>Play</span></button>
+        <!-- One key that splits in half while playing: pause with music, or pause quietly. -->
+        <div class="key-split" id="playSplit">
+          <button class="key play" id="kPlay"><svg><use href="#i-play"/></svg><span>Play</span><small id="kPlaySub" hidden></small></button>
+          <button class="key play quiet" id="kQuiet" hidden title="Pause without idle music"><svg><use href="#i-pause"/></svg><span>Quiet</span><small>no music</small></button>
+        </div>
         <button class="key" id="kSkip" data-seek="80"><svg><use href="#i-skip"/></svg><small>Skip intro, 80 s</small></button>
         <button class="key" id="kUnload"><svg><use href="#i-eject"/></svg><small>Unload</small></button>
       </div>
@@ -111,7 +124,10 @@
           <div class="music">
             <div class="art" id="art"><img id="cover" alt="" hidden><svg id="artNone"><use href="#i-note"/></svg></div>
             <div class="music-meta"><b id="mTitle">Silent</b><span id="mArtist"></span><div class="mbar"><i id="mBar"></i></div><span class="mtime" id="mTime"></span></div>
-            <button class="btn round" id="musicNext" aria-label="Next song" title="Next song"><svg><use href="#i-next"/></svg></button>
+            <div class="music-btns">
+              <button class="btn round" id="musicHold" aria-label="Hold music" title="Hold music"><svg><use href="#i-pause"/></svg></button>
+              <button class="btn round" id="musicNext" aria-label="Next song" title="Next song"><svg><use href="#i-next"/></svg></button>
+            </div>
           </div>
           <div class="mvol" id="mVol">
             <label for="consoleVol">Volume while idle</label>
@@ -122,6 +138,66 @@
           <div class="upnext" id="upNext"></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ================= LIVE ================= -->
+    <section class="view" id="v-live" aria-label="Live" hidden>
+      <div class="head">
+        <div class="show"><div class="series" id="liveSeries">Live</div><h1 id="liveHead">Nothing loaded</h1></div>
+        <div class="head-actions">
+          <button class="low-lat" id="lowLat" role="switch" aria-checked="false" title="Low-latency HLS: about 1 to 2.5 s behind on a nearby server; may stall over a long link"><span>Low latency</span><i class="switch" aria-hidden="true"></i></button>
+          <div class="watch-side" id="watchSide" role="group" aria-label="Channel to watch">
+            <button class="sub" data-side="sub" aria-pressed="true"><span class="tag">JP</span><span>Sub</span></button>
+            <button class="dub" data-side="dub" aria-pressed="false"><span class="tag">EN</span><span>Dub</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage sub" id="stage">
+        <div class="screen">
+          <video id="liveVideo" muted autoplay playsinline disablepictureinpicture></video>
+          <div class="stage-msg" id="stageMsg"><div class="spinner" hidden></div><b></b><span></span></div>
+          <div class="spinner stage-buffer" id="stageBuffer" hidden></div>
+          <button class="unmute" id="unmute" hidden><svg><use href="#i-muted"/></svg><span>Sound is off. Turn it on</span></button>
+        </div>
+        <div class="ctl">
+          <div class="seekbar" id="liveSeek" role="slider" tabindex="0" aria-label="Episode position" aria-valuemin="0">
+            <div class="bar"><div class="done"></div><div class="playhead"></div></div>
+          </div>
+          <div class="ctl-row">
+            <button class="cbtn" id="lBack" aria-label="Back 10 seconds" title="Back 10 s (Left arrow)"><svg><use href="#i-back"/></svg></button>
+            <button class="cbtn play" id="lPlay" aria-label="Play"><svg><use href="#i-play"/></svg></button>
+            <button class="cbtn" id="lFwd" aria-label="Forward 10 seconds" title="Forward 10 s (Right arrow)"><svg><use href="#i-fwd"/></svg></button>
+            <button class="cbtn wide" id="lSkip" aria-label="Skip intro" title="Skip intro, 80 s (Space twice)"><svg><use href="#i-skip"/></svg><span>Skip intro</span></button>
+            <span class="ctl-time" id="lTime"></span>
+            <span class="ctl-gap"></span>
+            <button class="lat" id="lLat" hidden disabled></button>
+            <div class="ctl-vol">
+              <button class="cbtn" id="lMute" aria-label="Turn sound on"><svg><use href="#i-muted"/></svg></button>
+              <input id="lVol" type="range" min="0" max="100" step="1" aria-label="Volume">
+            </div>
+            <button class="cbtn" id="lFull" aria-label="Fullscreen" title="Fullscreen (F)"><svg><use href="#i-full"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="live-foot">
+        <ul class="keys" aria-label="Keys">
+          <li><kbd>Space</kbd>Play or pause</li>
+          <li><kbd>2&times; Space</kbd>Skip intro</li>
+          <li><kbd>&larr;</kbd><kbd>&rarr;</kbd>10 s</li>
+          <li><kbd>&uarr;</kbd><kbd>&darr;</kbd>Volume</li>
+          <li><kbd>M</kbd>Mute</li>
+          <li><kbd>F</kbd>Fullscreen</li>
+        </ul>
+        <div class="src-line" id="liveUrlShow"><span>Watching</span><code id="liveUrl"></code><em id="liveUrlNote"></em><button class="linkbtn" id="liveUrlEdit">Change</button></div>
+        <form class="src-line" id="liveUrlForm" hidden>
+          <input id="liveUrlInput" type="url" spellcheck="false" aria-label="HLS address" placeholder="http://server:8888/path/index.m3u8">
+          <button class="btn" type="submit">Save</button>
+          <button class="btn" type="button" id="liveUrlReset">Use default</button>
+          <button class="btn" type="button" id="liveUrlCancel">Cancel</button>
+        </form>
       </div>
     </section>
 
@@ -222,6 +298,7 @@
   </main>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
+<script src="vendor/hls.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -9,7 +9,6 @@ import (
 	"image/png"
 	"io/fs"
 	"math"
-	"math/rand/v2"
 	"os"
 	"path/filepath"
 	"strings"
@@ -53,7 +52,6 @@ type Music struct {
 	pending         int
 	failed, replace bool
 	skips           int
-	nextRefresh     time.Time
 	ctx             context.Context
 	cancel          context.CancelFunc
 	workerCancel    context.CancelFunc
@@ -115,7 +113,6 @@ func (m *Music) Configure(s Settings) {
 	m.Error = ""
 	m.replace = true
 	m.skips = 0
-	m.nextRefresh = time.Now().Add(5 * time.Minute)
 	if s.MusicSource == "off" || (s.MusicSource == "folder" && s.MusicFolder == "") {
 		m.previous.close()
 		m.previous = preparedMusic{}
@@ -194,6 +191,7 @@ func (m *Music) worker(ctx context.Context, s Settings, requests <-chan struct{}
 	defer close(results)
 	var entries []PlexTrack
 	index := 0
+	shuffle := musicShuffle{last: lastID}
 	refreshed := time.Time{}
 	plex := newPlexClient(s)
 	playlistTitle := ""
@@ -245,10 +243,8 @@ func (m *Music) worker(ctx context.Context, s Settings, requests <-chan struct{}
 		index = 0
 		refreshed = time.Now()
 		if s.MusicShuffle {
-			rand.Shuffle(len(entries), func(i, j int) { entries[i], entries[j] = entries[j], entries[i] })
-			if len(entries) > 1 && entries[0].ID == lastID {
-				entries[0], entries[1] = entries[1], entries[0]
-			}
+			shuffle.update(entries)
+			entries = shuffle.tracks
 		} else if lastID != "" {
 			for i, track := range entries {
 				if track.ID == lastID {
@@ -279,15 +275,12 @@ func (m *Music) worker(ctx context.Context, s Settings, requests <-chan struct{}
 		for attempt := 0; attempt < len(entries); attempt++ {
 			if index >= len(entries) {
 				index = 0
-				if s.MusicShuffle {
-					rand.Shuffle(len(entries), func(i, j int) { entries[i], entries[j] = entries[j], entries[i] })
-					if len(entries) > 1 && entries[0].ID == lastID {
-						entries[0], entries[1] = entries[1], entries[0]
-					}
-				}
 			}
 			track := entries[index]
 			index++
+			if s.MusicShuffle {
+				track = shuffle.next()
+			}
 			out = m.prepareTrack(ctx, plex, track, s.MusicSource)
 			out.info.PlaylistTitle = playlistTitle
 			if out.err == "" {
@@ -435,10 +428,6 @@ func (m *Music) prepareTrack(ctx context.Context, plex *plexClient, t PlexTrack,
 	return out
 }
 func (m *Music) Tick(due, consume bool, volume float64) ([]byte, MusicInfo) {
-	if m.settings.MusicSource == "plex" && consume && time.Now().After(m.nextRefresh) {
-		m.Configure(m.settings)
-		m.replace = false
-	}
 	if m.results != nil {
 		for {
 			select {

@@ -254,16 +254,9 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		var req struct{}
 		if handlerErr = decodeJSON(w, r, &req); handlerErr == nil {
 			e := s.Engine
-			e.mu.Lock()
-			if len(e.outputs) > 0 || e.diagnostics.Running {
-				e.mu.Unlock()
-				handlerErr = fail("BUSY", 409, "stop streams and wait for existing diagnostics")
+			if handlerErr = e.startDiagnostics(Diagnose); handlerErr != nil {
 				break
 			}
-			e.diagnostics.Running = true
-			e.revision++
-			e.mu.Unlock()
-			go func() { report := Diagnose(e.ctx, e.Config.Assets); _ = e.SetDiagnostics(report) }()
 			writeJSON(w, 202, e.Snapshot().Diagnostics)
 			return
 		}
