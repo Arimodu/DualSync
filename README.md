@@ -1,12 +1,47 @@
 # DualSync
 
-DualSync publishes two independent video/audio feeds to RTMP or RTSP servers while keeping their source positions on one clock. FFmpeg publisher processes remain connected through pause, seek, media replacement and playlist changes. Go owns playback state, the HTTP API, music and broadcast composition; FFmpeg decodes, burns subtitles and encodes H.264/AAC.
+DualSync plays one show to two live streams at once: a **Sub** channel with Japanese audio and burned-in subtitles, and a **Dub** channel with English audio. Both channels run on one clock, so the two audiences always watch the same scene. Pause, seek, skip the intro or change episode, and both streams follow without dropping their connection.
 
-The bundled `webroot` is a dependency-free static control panel (`index.html`, `app.css`, `app.js`) with the media library browser, playlist preview, per-output track selection, playback, music, settings and encoder diagnostics. See `api/openapi.yaml` for the implemented contract. The source repository also contains `FRONTEND_HANDOFF.md` with development environment details; that machine-specific document is excluded from releases.
+It is a single Go service with a browser control panel. FFmpeg does the decoding, subtitle burn-in and H.264/AAC encoding. Go owns playback state, the HTTP API, idle music and the on-screen broadcast overlays.
+
+![The Console: both channels side by side, the shared position, transport controls, episodes and idle music](docs/screenshots/console.png)
+
+## Features
+
+- **Two synchronised outputs.** Each channel publishes to its own RTMP or RTSP server. The FFmpeg publishers stay connected through pause, seek, media changes and playlist changes.
+- **Per-channel tracks.** Pick the audio and subtitle track for each channel. Text subtitles (ASS/SRT) and bitmap subtitles (PGS/DVD) are burned in.
+- **Local files or Plex.** Browse a media folder or a Plex library. Use one file with both languages, or pair separate Sub and Dub files by season and episode. Local copies are preferred; otherwise media streams from Plex with byte ranges.
+- **Broadcast overlays.** The streams show a paused card, a progress ring and a now-playing music card. Transitions are drawn by the compositor, so viewers see them too.
+- **Idle music.** While paused, music plays from a folder or a Plex playlist, with shuffle, volume and crossfaded skips.
+- **Live view.** Watch either channel inside the panel over HLS. It has a low-latency mode, fullscreen, media keys and keyboard shortcuts (Space, 2× Space to skip the intro, arrow keys, M, F).
+- **Encoder qualification.** Every hardware encoder is tested on install. The service prefers NVENC, then Intel QSV, then VAAPI, and falls back to the CPU only when it is fast enough.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Library: choosing a Plex season and the tracks for each channel](docs/screenshots/library.png) | ![Live: the in-panel player with low-latency switch and Sub/Dub selector](docs/screenshots/live.png) |
+| **Library.** Choose a folder, a Plex season or one video, then the tracks for each channel. | **Live.** Watch either channel over HLS without leaving the panel. |
+| ![Streams: destination servers, idle music and on-screen display settings](docs/screenshots/streams.png) | ![System: encoder qualification results](docs/screenshots/system.png) |
+| **Streams.** Set the destination servers, idle music and on-screen display. | **System.** View encoder qualification results and run the test again. |
+
+What viewers see on a stream while playback is paused:
+
+![Broadcast overlay while paused, with the now-playing music card and the Sub channel badge](docs/screenshots/broadcast-paused.jpg)
+
+## Requirements
+
+- Linux on amd64, with systemd.
+- FFmpeg and ffprobe on `PATH`.
+- Two RTMP or RTSP servers to publish to, for example [MediaMTX](https://github.com/bluenviron/mediamtx). The Live view expects HLS from the same servers on port 8888. Set `hlsVariant: lowLatency` in MediaMTX for the low-latency mode.
+- Optional: an NVIDIA, Intel or AMD GPU for hardware encoding, and a Plex server.
+- To build from source: Go 1.26.
+
+There is no Docker dependency.
 
 ## Install
 
-Extract the Linux amd64 archive where the service should live, then run:
+Build a release archive (see [Development](#development)), extract it where the service should live, and run the installer:
 
 ```sh
 tar -xzf dualsync-0.4.0-linux-amd64.tar.gz
@@ -14,7 +49,7 @@ cd dualsync
 sudo ./install.sh
 ```
 
-The installer asks for media root, listener, service account and whether to serve the bundled frontend. It installs in the extracted directory and writes a systemd unit with absolute paths. Keep that directory in place. To relocate, stop the service, move the directory and rerun the installer there. Existing configuration is preserved. There is no Docker dependency.
+The installer asks for the media root, the listening address, the service account and whether to serve the bundled panel. It writes a systemd unit with absolute paths, so keep the directory in place. To move it, stop the service, move the directory and run the installer again there. Existing configuration is kept.
 
 For a noninteractive installation:
 
@@ -23,11 +58,13 @@ sudo ./install.sh --noninteractive --media-root /srv/media \
   --listen 0.0.0.0:8090 --service-user dualsync
 ```
 
-The installer requires systemd, FFmpeg/ffprobe and readable installation/media directories. It does not install packages or GPU drivers. The service account receives existing video/render group memberships; parent directories still need traversal permission. Configuration is stored under `/etc/dualsync`, and private credentials, playback state, artwork and diagnostic results under `/var/lib/dualsync`. The panel starts on boot; streams start manually.
+The installer does not install packages or GPU drivers. The service account is added to the existing `video` and `render` groups; parent directories of the media root still need traversal permission. Configuration is stored in `/etc/dualsync`. Credentials, playback state, artwork and diagnostics are stored in `/var/lib/dualsync`. The panel starts on boot; streams start only when you press **Start streams**.
 
-Every available hardware candidate is tested using two concurrent 30-second 1080p H.264 encodes through the publishing input path. Encoded files must contain 720 frames and decode without errors. Qualification requires at least 1.25 times the target throughput per output. Preference is NVENC, then Intel QSV, then Intel/AMD VAAPI. CPU fallback also requires more than four usable physical cores on bare metal or more than four usable allocated vCPUs in a VM, respecting affinity and CPU quota. VM host physical cores are reported unknown. A working GPU does not need to satisfy the CPU fallback threshold.
+### Encoder qualification
 
-If no candidate qualifies, installation requires explicit unsupported acknowledgement. Noninteractive installation needs `--allow-unsupported`. Unsupported status remains in the API. Changed hardware, driver or FFmpeg invalidates the saved qualification; run diagnostics again. Initial qualification does not establish long-term stability on every GPU. Intel/AMD devices require actual hardware testing.
+The installer tests every available encoder with two concurrent 30-second 1080p encodes through the publishing path. Each output must contain 720 frames, decode without errors and run at least 1.25× faster than real time. The CPU fallback also needs more than four usable physical cores, or more than four allocated vCPUs in a VM, respecting affinity and CPU quota.
+
+If nothing qualifies, installation stops unless you acknowledge unsupported operation (`--allow-unsupported` when noninteractive). A change of hardware, driver or FFmpeg invalidates the saved result; run the test again from the System view or with `dualsync doctor --encoding-test`.
 
 ## Run and configure
 
@@ -37,15 +74,21 @@ If no candidate qualifies, installation requires explicit unsupported acknowledg
 ./bin/dualsync doctor --encoding-test --json
 ```
 
-`--config FILE` loads JSON configuration. CLI flags override it. Defaults for `webroot` and `assets` come from the executable's installation directory, not the current working directory. `--webroot DIR` selects alternate frontend files. `--encoder nvenc|qsv|vaapi|cpu` and `--device DEVICE` override automatic selection; the chosen candidate must be qualified unless unsupported operation is explicitly allowed.
+| Option | Purpose |
+|---|---|
+| `--config FILE` | Load JSON configuration (see `config.example.json`). Flags override it. |
+| `--webroot DIR` | Serve a different panel. Defaults to the installation directory. |
+| `--no-webui` | Serve only the API. |
+| `--encoder nvenc\|qsv\|vaapi\|cpu`, `--device DEVICE` | Override automatic encoder selection. |
+| `--version` | Print the version. |
 
-Configure destinations through `/api/settings` while streams are stopped. Use two RTMP or RTSP base URLs and one shared stream path. Passwords are write-only. Folder-media and music paths are relative to the configured library root. Plex playlist music prefers readable local paths within that root and otherwise fetches original media from Plex. The backend rejects traversal and symlink escapes. It supports single-file dual audio, independently paired files, text subtitle burn-in and PGS/DVD bitmap subtitle burn-in.
+Set the destinations in the **Streams** view (or `POST /api/settings`) while streams are stopped: one RTMP or RTSP base URL per channel and one shared stream path. Passwords and the Plex token are write-only and never returned by the API.
 
-The output format is 1920x1080 at 24000/1001 fps, H.264 at 8 Mbps, stereo AAC at 48 kHz/192 kbps. Source alignment tolerance is ten seconds; receiver buffers can add different delays. A network or encoder failure can require the failed publisher to reconnect. Explicit Stop streams closes both publishers.
+**Output format:** 1920×1080 at 23.976 fps, H.264 at 8 Mbps, stereo AAC at 48 kHz / 192 kbps. The two sources stay within ten seconds of each other; each viewer's player can add its own buffering on top.
 
-Plex video APIs support movie/show lookup, season playlists, independent media versions and mixed Plex/storage outputs. Matched metadata supplies titles, episode numbers, summaries and artwork. Local files within the media root are preferred; unavailable files use Plex original-media HTTP byte ranges. Credentials remain server-side. Initial remote subtitle/font preparation can read the whole source, then seeks reuse the cached result. Multipart versions and Plex video playlists are unsupported. Frontend controls for these APIs are delivered separately; see the frontend handoff and OpenAPI contract.
+### Serving the panel from another web server
 
-To serve the frontend externally, start the backend with `--no-webui` and proxy `/api/*` under the frontend's own origin. For example, with Caddy:
+Start the backend with `--no-webui`, bind it to loopback and proxy `/api/*` under the panel's origin. With Caddy:
 
 ```caddyfile
 :8090 {
@@ -59,18 +102,35 @@ To serve the frontend externally, start the backend with `--no-webui` and proxy 
 }
 ```
 
-Bind the backend to loopback port 8091 in this example. There is no CORS support or mandatory Caddy dependency. Keep the reverse proxy restricted to trusted private-network clients; the backend sees the proxy's source address.
-
-Idle music keeps three upcoming songs prepared. Ready skips preserve gain and crossfade over 250 ms. Music source, shuffle and volume can change while publishing. Plex connection settings use a server URL, write-only token and playlist ID; `/api/plex/playlists` and `/api/plex/playlist?id=ID` provide selection data. The current panel does not yet include the Plex selector. The frontend handoff documents the required controls.
+The API has no CORS support and no authentication. Expose it only to trusted clients on a private network.
 
 ## Development
-
-Source lives in the Windows development repository; builds and tests run on Zeus. Preserve the Python production runtime while the new frontend is integrated. `legacy/python` contains the migration baseline. `bin/dualsync migrate --python-state DIR --media-root ROOT --state-dir NEW_STATE` imports private settings and playlist position into a separate state directory. The command does not modify the old state.
 
 ```sh
 go test -race ./...
 go vet ./...
-bash scripts/build-release.sh
+bash scripts/build-release.sh          # dist/dualsync-0.4.0-linux-amd64.tar.gz + .sha256
 ```
 
-The build script creates `dist/dualsync-0.3.0-linux-amd64.tar.gz` plus its SHA-256 file. The archive contains no saved credentials or personal server configuration. Automated HTTP tests validate JSON request/response schemas from the OpenAPI document. Native encoder and real server tests are separate from deterministic API tests. Test results and remaining hardware coverage are recorded in the source repository's `VALIDATION.md`.
+The release archive contains no saved credentials or server configuration. HTTP tests validate requests and responses against [`api/openapi.yaml`](api/openapi.yaml); regenerate it with `scripts/generate_openapi.py`. Encoder and real-server tests are separate from the deterministic API tests.
+
+The panel in `webroot/` is plain HTML, CSS and JavaScript with no build step. Its only third-party script is [hls.js](https://github.com/video-dev/hls.js) 1.5.20, vendored in `webroot/vendor/` with its licence.
+
+`legacy/python` holds the earlier Python implementation. `dualsync migrate --python-state DIR --media-root ROOT --state-dir NEW_STATE` imports its settings and playlist position into a new state directory without changing the old one.
+
+### Project notes
+
+| Document | Contents |
+|---|---|
+| [`api/openapi.yaml`](api/openapi.yaml) | The HTTP API contract |
+| [`DEPLOYMENT.md`](DEPLOYMENT.md) | Deployment notes |
+| [`VALIDATION.md`](VALIDATION.md) | Test results and hardware coverage |
+| [`FRONTEND_HANDOFF.md`](FRONTEND_HANDOFF.md), [`FRONTEND_REPORT.md`](FRONTEND_REPORT.md) | Panel API guide and change log |
+| [`BROADCAST_UI_REPORT.md`](BROADCAST_UI_REPORT.md) | Broadcast overlay design |
+| [`LATENCY_REPORT.md`](LATENCY_REPORT.md), [`MUSIC_QUEUE_REPORT.md`](MUSIC_QUEUE_REPORT.md), [`PLEX_VIDEO_REPORT.md`](PLEX_VIDEO_REPORT.md), [`STARTUP_REPORT.md`](STARTUP_REPORT.md) | Investigations behind specific features |
+
+## Third-party components
+
+- [hls.js](https://github.com/video-dev/hls.js), Apache 2.0, in `webroot/vendor/`.
+- [Zen Kaku Gothic New](https://fonts.google.com/specimen/Zen+Kaku+Gothic+New) and [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP), SIL Open Font License, in `assets/fonts/` and `webroot/fonts/`.
+- [FFmpeg](https://ffmpeg.org/) is required at runtime and is not bundled.
